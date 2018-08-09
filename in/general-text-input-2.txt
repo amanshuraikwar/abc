@@ -1,0 +1,2 @@
+I am learning C and assembly language together. I noticed that assembly is a type-less language compared to the C which requires declaration of the data type before data can be processed. But also I learnt that even a code written in C is first compiled into a code written in assembly and then assembled into object code. So that means data type declaration we use in C or any high level language is only meant for the ease of C compiler. They don't have any special bearing on the object code. Is that correct?
+!
