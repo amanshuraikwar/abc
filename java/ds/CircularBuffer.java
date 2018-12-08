@@ -28,6 +28,7 @@ public interface CircularBuffer<T> {
 			init();
 		}
 
+		// O(N)
 		private void init() {
 
 			head = new Node<T>(null);
@@ -45,6 +46,7 @@ public interface CircularBuffer<T> {
 
 		}
 
+		// O(1)
 		public boolean push(T value) {
 
 			if (tail.next == head) {
@@ -61,10 +63,12 @@ public interface CircularBuffer<T> {
 
 		}
 
+		// O(1)
 		public T peek() {
 			return head.value;
 		}
 
+		// O(1)
 		public T pop() {
 
 			if (head.value == null) {
@@ -83,6 +87,7 @@ public interface CircularBuffer<T> {
 
 		}
 
+		// O(1)
 		public boolean empty() {
 			return head == tail && tail.value == null;
 		}
@@ -106,6 +111,7 @@ public interface CircularBuffer<T> {
 
 		}
 
+		// O(1)
 		public boolean full() {
 			return tail.next == head;
 		}
