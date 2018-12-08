@@ -8,7 +8,430 @@ public class Driver {
 
 	public static void main(String[] args) {
 		
-		driveVector();
+		// driveQueue();
+		// driveStack();
+		// driveLinkedList();
+		// driveVector();
+		driveCircularBuffer();
+
+	}
+
+	private static void driveCircularBuffer() {
+
+		CircularBuffer<Integer> cb = new CircularBuffer.LinkedCircularBuffer<>(5);
+		
+		assertEquals("null", cb.peek() + "");
+		assertEquals("null", cb.pop() + "");
+		assertEquals(true, cb.empty());
+		assertEquals(5, cb.spaceLeft());
+		assertEquals(false, cb.full());
+
+		assertEquals(true, cb.push(1));
+		assertEquals(1, cb.peek());
+		assertEquals(false, cb.empty());
+		assertEquals(4, cb.spaceLeft());
+		assertEquals(false, cb.full());
+
+		assertEquals(1, cb.pop());
+		assertEquals("null", cb.pop() + "");
+		
+		assertEquals(true, cb.push(-1));
+		assertEquals(true, cb.push(-2));
+		
+		assertEquals(-1, cb.peek());
+		assertEquals(false, cb.empty());
+		assertEquals(3, cb.spaceLeft());
+		assertEquals(false, cb.full());
+
+		assertEquals(-1, cb.pop());
+		assertEquals(-2, cb.peek());
+		assertEquals(false, cb.empty());
+		assertEquals(4, cb.spaceLeft());
+		assertEquals(false, cb.full());
+
+		assertEquals(-2, cb.pop());
+		assertEquals("null", cb.peek() + "");
+		assertEquals("null", cb.pop() + "");
+		assertEquals(true, cb.empty());
+		assertEquals(5, cb.spaceLeft());
+		assertEquals(false, cb.full());
+
+		assertEquals(true, cb.push(-1));
+		assertEquals(true, cb.push(-2));
+		assertEquals(true, cb.push(-3));
+		assertEquals(true, cb.push(-4));
+		assertEquals(true, cb.push(-5));
+
+		assertEquals(false, cb.empty());
+		assertEquals(0, cb.spaceLeft());
+		assertEquals(true, cb.full());
+
+		assertEquals(false, cb.push(-6));
+		assertEquals(false, cb.push(-7));
+
+		assertEquals(false, cb.empty());
+		assertEquals(0, cb.spaceLeft());
+		assertEquals(true, cb.full());
+
+		assertEquals(-1, cb.peek());
+		
+		assertEquals(-1, cb.pop());
+
+		assertEquals(-2, cb.peek());
+		assertEquals(false, cb.empty());
+		assertEquals(1, cb.spaceLeft());
+		assertEquals(false, cb.full());
+
+		assertEquals(-2, cb.pop());
+
+		assertEquals(-3, cb.peek());
+		assertEquals(false, cb.empty());
+		assertEquals(2, cb.spaceLeft());
+		assertEquals(false, cb.full());
+
+		assertEquals(-3, cb.pop());
+		assertEquals(-4, cb.pop());
+
+		assertEquals(-5, cb.peek());
+		assertEquals(false, cb.empty());
+		assertEquals(4, cb.spaceLeft());
+		assertEquals(false, cb.full());
+
+		assertEquals(-5, cb.pop());
+		assertEquals("null", cb.peek() + "");
+		assertEquals("null", cb.pop() + "");
+		assertEquals(true, cb.empty());
+		assertEquals(5, cb.spaceLeft());
+		assertEquals(false, cb.full());
+	}
+
+	private static void driveQueue() {
+
+		Queue<Integer> queue = new Queue.LinkedQueue<>();
+		assertEquals(0, queue.size());
+		assertEquals(true, queue.empty());
+		assertEquals("null", queue.pop() + "");
+		assertEquals("null", queue.peek() + "");
+
+		queue.push(1);
+		assertEquals(1, queue.size());
+		assertEquals(false, queue.empty());
+		assertEquals(1, queue.peek());
+
+		assertEquals(1, queue.pop());
+		assertEquals(0, queue.size());
+		assertEquals(true, queue.empty());
+		assertEquals("null", queue.pop() + "");
+		assertEquals("null", queue.peek() + "");
+
+		queue.push(1);
+		queue.push(2);
+		assertEquals(2, queue.size());
+		assertEquals(false, queue.empty());
+		assertEquals(1, queue.peek());
+		assertEquals(1, queue.pop());
+
+		assertEquals(2, queue.peek());
+		assertEquals(1, queue.size());
+		assertEquals(false, queue.empty());
+
+		assertEquals(2, queue.pop());
+		assertEquals(0, queue.size());
+		assertEquals(true, queue.empty());
+		assertEquals("null", queue.pop() + "");
+		assertEquals("null", queue.peek() + "");
+
+		queue.push(1);
+		queue.push(2);
+		queue.push(3);
+		queue.push(4);
+		queue.push(-5);
+		assertEquals(5, queue.size());
+		assertEquals(false, queue.empty());
+		assertEquals(1, queue.peek());
+
+		assertEquals(1, queue.pop());
+		assertEquals(2, queue.peek());
+		assertEquals(2, queue.pop());
+		assertEquals(3, queue.peek());
+		assertEquals(3, queue.pop());
+		assertEquals(4, queue.peek());
+		assertEquals(4, queue.pop());
+		assertEquals(-5, queue.peek());
+		assertEquals(-5, queue.pop());
+
+		assertEquals(0, queue.size());
+		assertEquals(true, queue.empty());
+		assertEquals("null", queue.pop() + "");
+		assertEquals("null", queue.peek() + "");
+
+	}
+
+	private static void driveStack() {
+
+		Stack<Integer> stack = new Stack.LinkedStack<>();
+		assertEquals(0, stack.size());
+		assertEquals(true, stack.empty());
+		assertEquals("null", stack.pop() + "");
+		assertEquals("null", stack.peek() + "");
+
+		stack.push(1);
+		assertEquals(1, stack.size());
+		assertEquals(false, stack.empty());
+		assertEquals(1, stack.peek());
+
+		assertEquals(1, stack.pop());
+		assertEquals(0, stack.size());
+		assertEquals(true, stack.empty());
+		assertEquals("null", stack.pop() + "");
+		assertEquals("null", stack.peek() + "");
+
+		stack.push(1);
+		stack.push(2);
+		assertEquals(2, stack.size());
+		assertEquals(false, stack.empty());
+		assertEquals(2, stack.peek());
+		assertEquals(2, stack.pop());
+
+		assertEquals(1, stack.peek());
+		assertEquals(1, stack.size());
+		assertEquals(false, stack.empty());
+
+		assertEquals(1, stack.pop());
+		assertEquals(0, stack.size());
+		assertEquals(true, stack.empty());
+		assertEquals("null", stack.pop() + "");
+		assertEquals("null", stack.peek() + "");
+
+		stack.push(1);
+		stack.push(2);
+		stack.push(3);
+		stack.push(4);
+		stack.push(-5);
+		assertEquals(5, stack.size());
+		assertEquals(false, stack.empty());
+		assertEquals(-5, stack.peek());
+
+		assertEquals(-5, stack.pop());
+		assertEquals(4, stack.peek());
+		assertEquals(4, stack.pop());
+		assertEquals(3, stack.peek());
+		assertEquals(3, stack.pop());
+		assertEquals(2, stack.peek());
+		assertEquals(2, stack.pop());
+		assertEquals(1, stack.peek());
+		assertEquals(1, stack.pop());
+
+		assertEquals(0, stack.size());
+		assertEquals(true, stack.empty());
+		assertEquals("null", stack.pop() + "");
+		assertEquals("null", stack.peek() + "");
+
+	}
+
+	private static void driveLinkedList() {
+
+		LinkedList<Integer> ll = new LinkedList();
+
+		assertEquals("LinkedList [0] { }", ll.toString());
+		assertEquals(0, ll.size());
+		assertEquals(true, ll.empty());
+		assertEquals(null + "", ll.front() + "");
+		assertEquals(null + "", ll.back() + "");
+
+		ll.pushFront(1);
+
+		assertEquals("LinkedList [1] { 1 }", ll.toString());
+		assertEquals(1, ll.size());
+		assertEquals(false, ll.empty());
+		assertEquals(1, ll.front());
+		assertEquals(1, ll.back());
+
+		ll.pushFront(2);
+
+		assertEquals(2, ll.front());
+		assertEquals(1, ll.back());
+
+		ll.pushFront(3);
+		ll.pushFront(4);
+
+		assertEquals("LinkedList [4] { 4, 3, 2, 1 }", ll.toString());
+		assertEquals(4, ll.size());
+		assertEquals(4, ll.front());
+		assertEquals(1, ll.back());
+
+		assertEquals(4, ll.popFront());
+		assertEquals("LinkedList [3] { 3, 2, 1 }", ll.toString());
+		assertEquals(3, ll.size());
+		assertEquals(3, ll.front());
+		assertEquals(1, ll.back());
+
+		assertEquals(3, ll.popFront());
+		assertEquals(2, ll.popFront());
+
+		assertEquals("LinkedList [1] { 1 }", ll.toString());
+		assertEquals(1, ll.size());
+		assertEquals(1, ll.front());
+		assertEquals(1, ll.back());
+
+		assertEquals(1, ll.popFront());
+
+		assertEquals(0, ll.size());
+		assertEquals(null + "", ll.front() + "");
+		assertEquals(null + "", ll.back() + "");
+
+		ll.pushFront(-2);
+		ll.pushFront(-1);
+
+		assertEquals("LinkedList [2] { -1, -2 }", ll.toString());
+		assertEquals(2, ll.size());
+		assertEquals(-1, ll.front());
+		assertEquals(-2, ll.back());
+
+		assertEquals(-1, ll.popFront());
+		assertEquals(1, ll.size());
+		assertEquals(-2, ll.front());
+		assertEquals(-2, ll.back());
+
+		assertEquals(-2, ll.popFront());
+
+		ll.pushBack(-1);
+		
+		assertEquals("LinkedList [1] { -1 }", ll.toString());
+		assertEquals(1, ll.size());
+		assertEquals(-1, ll.front());
+		assertEquals(-1, ll.back());
+
+		ll.pushBack(-2);
+		ll.pushBack(-3);
+
+		assertEquals("LinkedList [3] { -1, -2, -3 }", ll.toString());
+		assertEquals(3, ll.size());
+		assertEquals(-1, ll.front());
+		assertEquals(-3, ll.back());
+
+		assertEquals(-3, ll.popBack());
+		
+		assertEquals("LinkedList [2] { -1, -2 }", ll.toString());
+		assertEquals(2, ll.size());
+		assertEquals(-1, ll.front());
+		assertEquals(-2, ll.back());
+
+		assertEquals(-2, ll.popBack());
+		assertEquals("LinkedList [1] { -1 }", ll.toString());
+		assertEquals(1, ll.size());
+		assertEquals(-1, ll.front());
+		assertEquals(-1, ll.back());
+
+
+		assertEquals(-1, ll.popBack());
+		assertEquals("LinkedList [0] { }", ll.toString());
+		assertEquals(0, ll.size());
+		assertEquals(null + "", ll.front() + "");
+		assertEquals(null + "", ll.back() + "");
+
+		assertEquals(true, ll.insert(0, 10));
+		assertEquals("LinkedList [1] { 10 }", ll.toString());
+		assertEquals(1, ll.size());
+		assertEquals(10, ll.front());
+		assertEquals(10, ll.back());
+
+		assertEquals(true, ll.insert(0, 5));
+		assertEquals(true, ll.insert(0, 1));
+		assertEquals(true, ll.insert(1, 2));
+		assertEquals(true, ll.insert(4, 20));
+
+		assertEquals("LinkedList [5] { 1, 2, 5, 10, 20 }", ll.toString());
+		assertEquals(5, ll.size());
+		assertEquals(1, ll.front());
+		assertEquals(20, ll.back());
+
+		assertEquals(1, ll.erase(0));
+
+		assertEquals("LinkedList [4] { 2, 5, 10, 20 }", ll.toString());
+		assertEquals(4, ll.size());
+		assertEquals(2, ll.front());
+		assertEquals(20, ll.back());
+
+		assertEquals(null + "", ll.erase(4) + "");
+
+		assertEquals(20, ll.erase(3));
+
+		assertEquals("LinkedList [3] { 2, 5, 10 }", ll.toString());
+		assertEquals(3, ll.size());
+		assertEquals(2, ll.front());
+		assertEquals(10, ll.back());
+
+		assertEquals(5, ll.erase(1));
+		assertEquals("LinkedList [2] { 2, 10 }", ll.toString());
+		assertEquals(2, ll.size());
+		assertEquals(2, ll.front());
+		assertEquals(10, ll.back());
+
+		assertEquals(10, ll.erase(1));
+		assertEquals(2, ll.erase(0));
+		assertEquals("LinkedList [0] { }", ll.toString());
+		assertEquals(0, ll.size());
+		assertEquals(null + "", ll.front() + "");
+		assertEquals(null + "", ll.back() + "");
+
+		ll.pushBack(100);
+		ll.pushBack(200);
+		ll.pushBack(300);
+		ll.pushBack(400);
+
+		assertEquals("LinkedList [4] { 100, 200, 300, 400 }", ll.toString());
+
+		assertEquals(400, ll.valueNFromEnd(0));
+		assertEquals("null", ll.valueNFromEnd(-1) + "");
+
+		assertEquals("null", ll.valueNFromEnd(100) + "");
+
+		assertEquals(100, ll.valueNFromEnd(3));
+		assertEquals(200, ll.valueNFromEnd(2));
+
+		ll.reverse();
+
+		assertEquals("LinkedList [4] { 400, 300, 200, 100 }", ll.toString());
+		assertEquals(4, ll.size());
+		assertEquals(400, ll.front());
+		assertEquals(100, ll.back());
+
+		assertEquals(0, ll.removeValue(400));
+
+		assertEquals("LinkedList [3] { 300, 200, 100 }", ll.toString());
+
+		ll.pushFront(100);
+
+		assertEquals("LinkedList [4] { 100, 300, 200, 100 }", ll.toString());
+
+		assertEquals(0, ll.removeValue(100));
+
+		assertEquals("LinkedList [3] { 300, 200, 100 }", ll.toString());
+
+		assertEquals(2, ll.removeValue(100));
+
+		ll.pushFront(400);
+
+		assertEquals("LinkedList [3] { 400, 300, 200 }", ll.toString());
+
+		assertEquals(1, ll.removeValue(300));
+
+		assertEquals(2, ll.size());
+		assertEquals(400, ll.front());
+		assertEquals(200, ll.back());
+
+		assertEquals(0, ll.removeValue(400));
+
+		assertEquals(1, ll.size());
+		assertEquals(200, ll.front());
+		assertEquals(200, ll.back());
+
+		assertEquals(0, ll.removeValue(200));
+		assertEquals(0, ll.size());
+		assertEquals(null + "", ll.front() + "");
+		assertEquals(null + "", ll.back() + "");
+
 	}
 
 	private static void driveVector() {
@@ -16,7 +439,6 @@ public class Driver {
 		try {
 			
 			Vector<Integer> vector = new Vector();
-			int testCaseCount = 0;
 
 			vector.add(1);
 			vector.add(2);

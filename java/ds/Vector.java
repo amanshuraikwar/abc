@@ -1,7 +1,5 @@
 package ds;
 
-import java.lang.reflect.ParameterizedType;
-
 public class Vector<DataType> {
 	
 	private static final int EXPAND_FACTOR = 2;

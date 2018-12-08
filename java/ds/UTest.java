@@ -18,6 +18,10 @@ public class UTest {
 		assertEquals(expected + "", actual + "");
 	}
 
+	public static void assertEquals(boolean expected, boolean actual) {
+		assertEquals(expected + "", actual + "");
+	}
+
 	public static void assertEquals(String expected, String actual) {
 		
 		boolean pass = expected.equals(actual);
@@ -25,13 +29,12 @@ public class UTest {
 		if (pass) {
 			// tick char
 			print(" " + ((char)0x2713) +" ");
+			println("[" + (++testCaseCount) + "] Passed!");
 		} else {
 			// cross char
 			print(" " + ((char)0x2A09) +" ");
+			println("[" + (++testCaseCount) + "] Failed!");
 		}
-		
-		
-		println("[" + (++testCaseCount) + "] Passed: " + pass);
 		
 		if (!pass) {
 			// replacing every char in '"[" + (testCaseCount) + "]"' with a space to give correct leading space

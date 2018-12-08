@@ -1,2 +1,2 @@
-javac ds/Driver.java ds/Vector.java ds/L.java
+javac $(find ds -name "*.java")
 java ds.Driver
