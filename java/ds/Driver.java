@@ -12,7 +12,101 @@ public class Driver {
 		// driveStack();
 		// driveLinkedList();
 		// driveVector();
-		driveCircularBuffer();
+		// driveCircularBuffer();
+		// driveRollingHash();
+
+		driveKarpRabin();
+
+	}
+
+	private static void driveKarpRabin() {
+
+		String searchStr = "t sub";
+		String domainStr = "You can get substring  ";
+
+		RollingHash rh1 = new RollingHash.DivisionRollingHash(541);
+		RollingHash rh2 = new RollingHash.DivisionRollingHash(541);
+
+		for(int i = 0; i < searchStr.length(); i++) {
+			rh1.append(searchStr.charAt(i));
+		}
+
+		for(int i = 0; i < searchStr.length(); i++) {
+			rh2.append(domainStr.charAt(i));
+		}
+
+		boolean equal = false;
+
+		if (rh1.hash() == rh2.hash()) {
+			equal = searchStr.equals(domainStr.substring(0, searchStr.length()));
+		}
+
+		assertEquals(false, equal);
+
+		for(int i = searchStr.length(); i < domainStr.length(); i++) {
+
+			rh2.skip(domainStr.charAt(i - searchStr.length()));
+			rh2.append(domainStr.charAt(i));
+
+			// L.println("Index: " + (i - searchStr.length() + 1) + " Hash 1: " + rh1.hash() + " hash 2: " + rh2.hash());
+
+			if (rh1.hash() == rh2.hash()) {
+				equal = searchStr.equals(domainStr.substring(i - searchStr.length() + 1, i + 1));
+			}
+
+			if (equal) {
+				break;
+			}
+		}
+
+		assertEquals(true, equal);
+
+	}
+
+	private static void driveRollingHash() {
+
+		String s1 = "ABC";
+		
+		RollingHash rh1 = new RollingHash.DivisionRollingHash(541);
+		
+		for(int i = 0; i < s1.length(); i++) {
+			rh1.append(s1.charAt(i));
+		}
+
+		// appending
+		assertEquals(131, rh1.hash());
+
+		// skipping to zero
+		rh1.skip('A');
+
+		assertEquals(400, rh1.hash());
+
+		rh1.skip('B');
+
+		assertEquals(67, rh1.hash());
+
+		rh1.skip('C');
+
+		assertEquals(0, rh1.hash());
+
+		// checking for hash, skip vs append
+		s1 = "ABCDEFGH";
+
+		for(int i = 0; i < s1.length(); i++) {
+			rh1.append(s1.charAt(i));
+		}
+
+		String s2 = "BCDEFGH";
+
+		RollingHash rh2= new RollingHash.DivisionRollingHash(541);
+
+		for(int i = 0; i < s2.length(); i++) {
+			rh2.append(s2.charAt(i));
+		}
+
+		rh1.skip('A');
+
+		assertEquals(true, rh1.hash() == rh2.hash());
 
 	}
 
