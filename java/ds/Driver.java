@@ -8,18 +8,123 @@ public class Driver {
 
 	public static void main(String[] args) {
 		
-		// driveQueue();
-		// driveStack();
-		// driveLinkedList();
-		// driveVector();
-		// driveCircularBuffer();
-		// driveRollingHash();
-
+		driveQueue();
+		driveStack();
+		driveLinkedList();
+		driveVector();
+		driveCircularBuffer();
+		driveRollingHash();
 		driveKarpRabin();
+		driveBitwise();
+
+		driveByte();
 
 	}
 
+	private static void driveByte() {
+		
+		setTestContext("Byte");
+		
+		// <+/->0bXXX...
+		// use +0bXXX... for a positive value
+		// use -0bXXX... for a negative value
+		// this is used for giving binary for a number
+		// for example 0b1 = 1, 0b11 = 3, 0b10 = 2 and so on...
+		
+		// b1 is -0b0000001 = 11111111 = -1
+		byte b1 = -0b0000001;
+		assertEquals((byte) -1, b1);
+
+		// ~b1 is 00000000 = 0b0000000 = 0
+		byte b2 = (byte) ~b1;
+		assertEquals(0b0000000, b2);
+		
+		// proof that java stores the negative numbers as 2's compliment
+		// b3 is 01001110 = 78
+		// b4 is (~b3 (1's compliment) = 10110001) + (0b1 = 00000001) = (10110010 = -78)
+		byte b3 = 0b1001110;
+		assertEquals(78, b3);
+		byte b4 = (byte) ((byte) ~b3 + (byte) 0b1);
+		assertEquals(-78, b4);
+		// or by using simple integers
+		assertEquals(-78, ~78 + 1);
+
+		// representing max -ve byte using -0bXXX... notation
+		byte b5 = -0b10000000;
+		byte b6 = 0b1111111; // this is 127
+		// b6 is 127 = 01111111, ~b6 = 10000000 = -128 (as of 2's compliment)
+		// this proves b5 = -128
+		assertEquals(~b6, b5);
+	}
+
+	private static  void driveBitwise() {
+		
+		setTestContext("Bitwise");
+		
+		// and
+		assertEquals(0, 2&1);
+		
+		// or
+		assertEquals(3, 2|1);
+		
+		// xor
+		// if same bits --> 0
+		assertEquals(0, 2^2);
+		// if different bits --> 1
+		assertEquals(3, 2^1);
+
+		// compliment
+		// this replaces 1s with 0s and vise versa
+		// so, for 1 = 00000...001 --> ~1 = 111111...110 which is -2 as of 2's compliment
+		assertEquals(-2, ~1);
+		// for 0 = 00000...000 --> ~0 = 111111...111 which is -1 as of 2's compliment
+		assertEquals(-1, ~0);
+
+		// left shift
+		// shifts bit left leaving zero at original bits 
+		assertEquals(4, 2<<1);
+		assertEquals(8, 2<<2);
+		// multiply the number by 2^x where x is number of shifted bits
+		assertEquals(20, 5<<2);
+
+		// right shift
+		assertEquals(2, 5>>1);
+		// divide the number by 2^x where x is number of shifted bits
+		assertEquals(5, 20>>2);
+
+		// zero fill right shift
+		// todo
+		assertEquals(2, 5>>>1);
+		// divide the number by 2^x where x is number of shifted bits
+		assertEquals(5, 20>>>2);
+		
+		// special cases
+		// just shift the right-most bit (which is 1) to right so every bit is now 0
+		assertEquals(0, 1>>1);
+		// >> operator shifts the bits right and replaces with the left-most bit
+		// so for -1, the left-most bit is 1 and as of 2's compiment, every other bit is also 1
+		// thus -1>>1 will not change anything in the bits
+		assertEquals(-1, -1>>30);
+
+		// negative numbers
+		// for -2 as of 2's compliment, all the bits will be 1 except the right-most bit
+		// shifting one right will just eliminate the zero from right-most bit
+		assertEquals(-1, -2>>1);
+		// for -1 all the bits are one and >>> will shift right by one bit and will replace the first bit with zero
+		// converting that number to a positive according to 2's compliment
+		// so -1>>>1 will be 01111111...(depending on system)
+		// this will be max positive signed int (32 bit on the system that it's written)
+		assertEquals(2147483647, -1>>>1);
+
+		// integer roll through
+		// adding 1 to the max positive signed integer gives max negative signed integer
+		// because: -1 = 1111111...11 and -1>>>1 = 0111111...11 and (-1>>>1) + 1 = 1000000...00 and MAX_NEGATIVE = 100000...00
+		assertEquals(-2147483648, (-1>>>1) + 1);
+	}
+
 	private static void driveKarpRabin() {
+
+		setTestContext("KarpRabin");
 
 		String searchStr = "t sub";
 		String domainStr = "You can get substring  ";
@@ -64,6 +169,8 @@ public class Driver {
 	}
 
 	private static void driveRollingHash() {
+
+		setTestContext("RollingHash");
 
 		String s1 = "ABC";
 		
@@ -111,6 +218,8 @@ public class Driver {
 	}
 
 	private static void driveCircularBuffer() {
+
+		setTestContext("CircularBuffer");
 
 		CircularBuffer<Integer> cb = new CircularBuffer.LinkedCircularBuffer<>(5);
 		
@@ -201,6 +310,8 @@ public class Driver {
 
 	private static void driveQueue() {
 
+		setTestContext("Queue");
+
 		Queue<Integer> queue = new Queue.LinkedQueue<>();
 		assertEquals(0, queue.size());
 		assertEquals(true, queue.empty());
@@ -263,6 +374,8 @@ public class Driver {
 
 	private static void driveStack() {
 
+		setTestContext("Stack");
+
 		Stack<Integer> stack = new Stack.LinkedStack<>();
 		assertEquals(0, stack.size());
 		assertEquals(true, stack.empty());
@@ -324,6 +437,8 @@ public class Driver {
 	}
 
 	private static void driveLinkedList() {
+
+		setTestContext("LinkedList");
 
 		LinkedList<Integer> ll = new LinkedList();
 
@@ -529,6 +644,8 @@ public class Driver {
 	}
 
 	private static void driveVector() {
+
+		setTestContext("Vector");
 
 		try {
 			
