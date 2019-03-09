@@ -16,8 +16,55 @@ public class Driver {
 		driveRollingHash();
 		driveKarpRabin();
 		driveBitwise();
-
 		driveByte();
+		driveBitsCounter();
+		drivePowerTwoRounder();
+
+	}
+
+	private static void drivePowerTwoRounder() {
+		
+		PowerTwoRounder powerTwoRounder = new PowerTwoRounder.SimplePowerTwoRounder();
+		
+		assertEquals(-1, powerTwoRounder.round(-1));
+		assertEquals(1, powerTwoRounder.round(0));
+		assertEquals(1, powerTwoRounder.round(1));
+		assertEquals(2, powerTwoRounder.round(2));
+		assertEquals(4, powerTwoRounder.round(3));
+		assertEquals(4, powerTwoRounder.round(4));
+		assertEquals(1024, powerTwoRounder.round(1020));
+		assertEquals(1024, powerTwoRounder.round(1024));
+		assertEquals(1048576, powerTwoRounder.round(1048576));
+		assertEquals(1073741824, powerTwoRounder.round(1073741824));
+		// -1>>>1 = 011...1 = max signed int = 2147483647, 2147483647/2 = 1073741823.5
+		assertEquals(1073741824, powerTwoRounder.round((-1>>>1)/2));
+	}
+
+	private static void driveBitsCounter() {
+		
+		setTestContext("BitsCounter");
+
+		BitsCounter bitsCounter = new BitsCounter.SimpleBitsCounter();
+
+		assertEquals(0, bitsCounter.countSetBits(0));
+		assertEquals(1, bitsCounter.countSetBits(1));
+		assertEquals(1, bitsCounter.countSetBits(2));
+		assertEquals(2, bitsCounter.countSetBits(3));
+		
+		// as of 2's compliment -1 = 111...1
+		assertEquals(32, bitsCounter.countSetBits(-1));
+		// as of 2's compliment -1 = 111...1, -1>>>1 = 011...1
+		assertEquals(31, bitsCounter.countSetBits(-1>>>1));
+
+		assertEquals(32, bitsCounter.countUnsetBits(0));
+		assertEquals(31, bitsCounter.countUnsetBits(1));
+		assertEquals(31, bitsCounter.countUnsetBits(2));
+		assertEquals(30, bitsCounter.countUnsetBits(3));
+		
+		// as of 2's compliment -1 = 111...1
+		assertEquals(0, bitsCounter.countUnsetBits(-1));
+		// as of 2's compliment -1 = 111...1, -1>>>1 = 011...1
+		assertEquals(1, bitsCounter.countUnsetBits(-1>>>1));
 
 	}
 
