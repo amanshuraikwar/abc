@@ -19,12 +19,96 @@ public class Driver {
 		driveByte();
 		driveBitsCounter();
 		drivePowerTwoRounder();
+		driveSwap();
+		driveAbsolute();
 
+	}
+
+	private static void driveAbsolute() {
+
+		AbsoluteInteger absoluteInteger = new AbsoluteInteger.TwosCompliment();
+		
+		assertEquals(235534, absoluteInteger.abs(235534));
+		assertEquals(235534, absoluteInteger.abs(-235534));
+
+		absoluteInteger = new AbsoluteInteger.TwosComplimentLess();
+
+		assertEquals(235534, absoluteInteger.abs(235534));
+		assertEquals(235534, absoluteInteger.abs(-235534));
+	}
+
+	private static void driveSwap() {
+
+		int a = 1;
+		int b = 2;
+
+		// simple using temp
+		int temp = a;
+		a = b;
+		b = temp;
+
+		assertEquals(2, a);
+		assertEquals(1, b);
+
+		a = 1;
+		b = 2;
+
+		// using arithematic operations
+		// no extra variable
+		a = a + b;
+		b = a - b;
+		a = a - b;
+
+		assertEquals(2, a);
+		assertEquals(1, b);
+
+		a = 1;
+		b = 2;
+
+		// using bitwise operations
+		// no extra variable
+
+		// (a xor b) xor a = b
+		// Proof: 
+		// 		 (0 xor 0) xor 0 = 0
+		// 		 (1 xor 0) xor 1 = 0
+		//		 (0 xor 1) xor 0 = 1
+		// 		 (1 xor 1) xor 1 = 1
+
+		// b xor (a xor b) = a
+		// Proof: 
+		// 		 0 xor (0 xor 0) = 0
+		// 		 1 xor (0 xor 1) = 0
+		//		 0 xor (1 xor 0) = 1
+		// 		 1 xor (1 xor 1) = 1
+
+		a ^= b;
+		b ^= a;
+		a ^= b;
+
+		assertEquals(2, a);
+		assertEquals(1, b);
 	}
 
 	private static void drivePowerTwoRounder() {
 		
 		PowerTwoRounder powerTwoRounder = new PowerTwoRounder.SimplePowerTwoRounder();
+		
+		assertEquals(-1, powerTwoRounder.round(-1));
+		assertEquals(1, powerTwoRounder.round(0));
+		assertEquals(1, powerTwoRounder.round(1));
+		assertEquals(2, powerTwoRounder.round(2));
+		assertEquals(4, powerTwoRounder.round(3));
+		assertEquals(4, powerTwoRounder.round(4));
+		assertEquals(1024, powerTwoRounder.round(1020));
+		assertEquals(1024, powerTwoRounder.round(1024));
+		assertEquals(1048576, powerTwoRounder.round(1048576));
+		assertEquals(1073741824, powerTwoRounder.round(1073741824));
+		// -1>>>1 = 011...1 = max signed int = 2147483647, 2147483647/2 = 1073741823.5
+		assertEquals(1073741824, powerTwoRounder.round((-1>>>1)/2));
+
+
+		powerTwoRounder = new PowerTwoRounder.ShiftPowerTwoRounder();
 		
 		assertEquals(-1, powerTwoRounder.round(-1));
 		assertEquals(1, powerTwoRounder.round(0));
