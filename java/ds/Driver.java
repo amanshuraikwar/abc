@@ -8,20 +8,60 @@ public class Driver {
 
 	public static void main(String[] args) {
 		
-		driveQueue();
-		driveStack();
-		driveLinkedList();
-		driveVector();
-		driveCircularBuffer();
-		driveRollingHash();
-		driveKarpRabin();
-		driveBitwise();
-		driveByte();
-		driveBitsCounter();
-		drivePowerTwoRounder();
-		driveSwap();
-		driveAbsolute();
+		// driveQueue();
+		// driveStack();
+		// driveLinkedList();
+		// driveVector();
+		// driveCircularBuffer();
+		// driveRollingHash();
+		// driveKarpRabin();
+		// driveBitwise();
+		// driveByte();
+		// driveBitsCounter();
+		// drivePowerTwoRounder();
+		// driveSwap();
+		// driveAbsolute();
+		driveTreeTraversals();
 
+	}
+
+	private static void driveTreeTraversals() {
+
+		Tree.Node<Integer> root = new Tree.Node<>(1);
+		
+		int index = 1;
+		
+		Queue<Tree.Node<Integer>> queue = new Queue.LinkedQueue<>();
+		queue.push(root);
+
+		Tree.Node<Integer> child1 = new Tree.Node<>(2);
+		Tree.Node<Integer> child2 = new Tree.Node<>(3);
+
+		root.addChild(child1);
+		root.addChild(child2);
+
+		child1.addChild(new Tree.Node<>(4));
+
+		child2 = new Tree.Node<>(5);
+
+		child1.addChild(child2);
+
+		child2.addChild(new Tree.Node<>(6));
+
+		// graph:
+		// 		1
+		//	   / \
+		//	  2  3
+		// 	 / \   
+		//  4  5
+		//    /
+		//   6
+
+		Tree.Traversaler traversaler = new Tree.RecursiveTraversaler();
+		assertEquals("[4, 2, 6, 5, 1, 3]", traversaler.inOrder(root).toString());
+		assertEquals("[1, 2, 4, 5, 6, 3]", traversaler.preOrder(root).toString());
+		assertEquals("[4, 6, 5, 2, 3, 1]", traversaler.postOrder(root).toString());
+		assertEquals("[1, 2, 3, 4, 5, 6]", traversaler.levelOrder(root).toString());
 	}
 
 	private static void driveAbsolute() {
