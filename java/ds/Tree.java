@@ -22,6 +22,10 @@ public interface Tree {
 		public List<Node<T>> getChildred() {
 			return children;
 		}
+
+		public T getVal() {
+			return val;
+		}
 	}
 
 	interface Traversaler {
@@ -119,6 +123,58 @@ public interface Tree {
 			}
 
 			return rv;
+		}
+	}
+
+	interface Searcher {
+		public <T> Node<T> bfs(Node<T> root, T val);
+		public <T> Node<T> dfs(Node<T> root, T val);
+	}
+
+	class SimpleSearcher implements Searcher {
+
+		@Override
+		public <T> Node<T> bfs(Node<T> root, T val) {
+
+			Queue<Node<T>> queue = new Queue.LinkedQueue<>();
+			queue.push(root);
+
+			while(!queue.empty()) {
+
+				Node<T> node = queue.pop();
+
+				if (node.val == val) {
+					return node;
+				}
+
+				for(Node<T> child : node.children) {
+					queue.push(child);	
+				}
+			}
+
+			return null;
+		}
+
+		@Override
+		public <T> Node<T> dfs(Node<T> root, T val) {
+			
+			Stack<Node<T>> stack = new Stack.LinkedStack<>();
+			stack.push(root);
+
+			while(!stack.empty()) {
+
+				Node<T> node = stack.pop();
+
+				if(node.val == val) {
+					return node;
+				}
+
+				for(Node<T> child : node.children) {
+					stack.push(child);
+				}
+			}
+
+			return null;
 		}
 	}
 

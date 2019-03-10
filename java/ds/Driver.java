@@ -8,32 +8,28 @@ public class Driver {
 
 	public static void main(String[] args) {
 		
-		// driveQueue();
-		// driveStack();
-		// driveLinkedList();
-		// driveVector();
-		// driveCircularBuffer();
-		// driveRollingHash();
-		// driveKarpRabin();
-		// driveBitwise();
-		// driveByte();
-		// driveBitsCounter();
-		// drivePowerTwoRounder();
-		// driveSwap();
-		// driveAbsolute();
+		driveQueue();
+		driveStack();
+		driveLinkedList();
+		driveVector();
+		driveCircularBuffer();
+		driveRollingHash();
+		driveKarpRabin();
+		driveBitwise();
+		driveByte();
+		driveBitsCounter();
+		drivePowerTwoRounder();
+		driveSwap();
+		driveAbsolute();
 		driveTreeTraversals();
+		driveBfs();
+		driveDfs();
 
 	}
 
-	private static void driveTreeTraversals() {
+	private static void driveDfs() {
 
 		Tree.Node<Integer> root = new Tree.Node<>(1);
-		
-		int index = 1;
-		
-		Queue<Tree.Node<Integer>> queue = new Queue.LinkedQueue<>();
-		queue.push(root);
-
 		Tree.Node<Integer> child1 = new Tree.Node<>(2);
 		Tree.Node<Integer> child2 = new Tree.Node<>(3);
 
@@ -49,10 +45,82 @@ public class Driver {
 		child2.addChild(new Tree.Node<>(6));
 
 		// graph:
-		// 		1
-		//	   / \
-		//	  2  3
-		// 	 / \   
+		//      1
+		//     / \
+		//    2  3
+		//   / \   
+		//  4  5
+		//    /
+		//   6
+		
+		Tree.Searcher searcher = new Tree.SimpleSearcher();
+		assertEquals(1, searcher.dfs(root, 1).getVal());
+		assertEquals(2, searcher.dfs(root, 2).getVal());
+		assertEquals(3, searcher.dfs(root, 3).getVal());
+		assertEquals(4, searcher.dfs(root, 4).getVal());
+		assertEquals(5, searcher.dfs(root, 5).getVal());
+		assertEquals(6, searcher.dfs(root, 6).getVal());
+		assertEquals("null", searcher.dfs(root, 0) + "");
+	}
+
+	private static void driveBfs() {
+
+		Tree.Node<Integer> root = new Tree.Node<>(1);
+		Tree.Node<Integer> child1 = new Tree.Node<>(2);
+		Tree.Node<Integer> child2 = new Tree.Node<>(3);
+
+		root.addChild(child1);
+		root.addChild(child2);
+
+		child1.addChild(new Tree.Node<>(4));
+
+		child2 = new Tree.Node<>(5);
+
+		child1.addChild(child2);
+
+		child2.addChild(new Tree.Node<>(6));
+
+		// graph:
+		//      1
+		//     / \
+		//    2  3
+		//   / \   
+		//  4  5
+		//    /
+		//   6
+
+		Tree.Searcher searcher = new Tree.SimpleSearcher();
+		assertEquals(1, searcher.bfs(root, 1).getVal());
+		assertEquals(2, searcher.bfs(root, 2).getVal());
+		assertEquals(3, searcher.bfs(root, 3).getVal());
+		assertEquals(4, searcher.bfs(root, 4).getVal());
+		assertEquals(5, searcher.bfs(root, 5).getVal());
+		assertEquals(6, searcher.bfs(root, 6).getVal());
+		assertEquals("null", searcher.bfs(root, 0) + "");
+	}
+
+	private static void driveTreeTraversals() {
+
+		Tree.Node<Integer> root = new Tree.Node<>(1);
+		Tree.Node<Integer> child1 = new Tree.Node<>(2);
+		Tree.Node<Integer> child2 = new Tree.Node<>(3);
+
+		root.addChild(child1);
+		root.addChild(child2);
+
+		child1.addChild(new Tree.Node<>(4));
+
+		child2 = new Tree.Node<>(5);
+
+		child1.addChild(child2);
+
+		child2.addChild(new Tree.Node<>(6));
+
+		// graph:
+		//      1
+		//     / \
+		//    2  3
+		//   / \   
 		//  4  5
 		//    /
 		//   6
