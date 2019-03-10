@@ -52,8 +52,17 @@ public class Driver {
 		//  4  5
 		//    /
 		//   6
-		
+
 		Tree.Searcher searcher = new Tree.SimpleSearcher();
+		assertEquals(1, searcher.dfs(root, 1).getVal());
+		assertEquals(2, searcher.dfs(root, 2).getVal());
+		assertEquals(3, searcher.dfs(root, 3).getVal());
+		assertEquals(4, searcher.dfs(root, 4).getVal());
+		assertEquals(5, searcher.dfs(root, 5).getVal());
+		assertEquals(6, searcher.dfs(root, 6).getVal());
+		assertEquals("null", searcher.dfs(root, 0) + "");
+
+		searcher = new Tree.RecursiveSearcher();
 		assertEquals(1, searcher.dfs(root, 1).getVal());
 		assertEquals(2, searcher.dfs(root, 2).getVal());
 		assertEquals(3, searcher.dfs(root, 3).getVal());

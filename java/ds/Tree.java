@@ -178,4 +178,38 @@ public interface Tree {
 		}
 	}
 
+	class RecursiveSearcher implements Searcher {
+
+		@Override
+		public <T> Node<T> bfs(Node<T> root, T val) {
+			
+			// recursive implementation is just a stupid recursive transformation of the 
+			// iterative implementation using a queue
+
+			// left for the reader to implement
+			// or maybe for the future me :)
+
+			return null;
+		}
+
+		@Override
+		public <T> Node<T> dfs(Node<T> root, T val) {
+			
+			if(root.val == val) {
+				return root;
+			}
+
+			Node<T> ans;
+
+			for(Node<T> child : root.children) {
+
+				if((ans = dfs(child, val)) != null) {
+					return ans;	
+				}
+			}
+
+			return null;
+		}
+	}
+
 }
