@@ -1,12 +1,12 @@
 echo ""
 echo "[SCRIPT] Compiling and Running............STARTED"
+echo ""
 javac -verbose -Xstdout log.txt $(find abc -name "*.java") && java abc.Driver >> out.txt
+echo "[SCRIPT] Compile............STARTED"
 echo ""
-echo "[SCRIPT] File Parsing............STARTED"
+cat log.txt
 echo ""
-cat log.txt | grep parsing
-echo ""
-echo "[SCRIPT] File Parsing............COMPLETE"
+echo "[SCRIPT] Compile............COMPLETE"
 echo ""
 echo "[SCRIPT] Run............START"
 echo ""
