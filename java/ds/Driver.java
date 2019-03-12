@@ -24,7 +24,46 @@ public class Driver {
 		driveTreeTraversals();
 		driveBfs();
 		driveDfs();
+		driveBinarySearch();
+	}
 
+	private static void driveBinarySearch() {
+
+		Integer[] sortedInput = new Integer[]{-67, -34, -12, 0, 1, 56, 87, 198, 235};
+		BinarySearch.Comparator<Integer> comparator = new BinarySearch.Comparator<Integer>() {
+			@Override
+			public int compare(Integer expectedBig, Integer expectedSmall) {
+				return expectedBig - expectedSmall;
+			}
+		};
+
+		assertEquals(1, comparator.compare(-1, -2));
+		assertEquals(4, comparator.compare(34, 30));
+		assertEquals(0, comparator.compare(0, 0));
+		assertEquals(-4, comparator.compare(-34, -30));
+		assertEquals(-4, comparator.compare(30, 34));
+
+		BinarySearch bs = new BinarySearch.IterativeBinarySearch();
+		assertEquals(4, bs.search(1, sortedInput, comparator));
+		assertEquals(1, bs.search(-34, sortedInput, comparator));
+		assertEquals(0, bs.search(-67, sortedInput, comparator));
+		assertEquals(2, bs.search(-12, sortedInput, comparator));
+		assertEquals(3, bs.search(0, sortedInput, comparator));
+		assertEquals(5, bs.search(56, sortedInput, comparator));
+		assertEquals(6, bs.search(87, sortedInput, comparator));
+		assertEquals(7, bs.search(198, sortedInput, comparator));
+		assertEquals(8, bs.search(235, sortedInput, comparator));
+
+		bs = new BinarySearch.RecursiveBinarySearch();
+		assertEquals(4, bs.search(1, sortedInput, comparator));
+		assertEquals(1, bs.search(-34, sortedInput, comparator));
+		assertEquals(0, bs.search(-67, sortedInput, comparator));
+		assertEquals(2, bs.search(-12, sortedInput, comparator));
+		assertEquals(3, bs.search(0, sortedInput, comparator));
+		assertEquals(5, bs.search(56, sortedInput, comparator));
+		assertEquals(6, bs.search(87, sortedInput, comparator));
+		assertEquals(7, bs.search(198, sortedInput, comparator));
+		assertEquals(8, bs.search(235, sortedInput, comparator));
 	}
 
 	private static void driveDfs() {
