@@ -1,7 +1,10 @@
-package ds;
+package abc.algo;
 
 import java.util.List;
 import java.util.ArrayList;
+
+import abc.ds.Queue;
+import abc.ds.Stack;
 
 public interface Tree {
 

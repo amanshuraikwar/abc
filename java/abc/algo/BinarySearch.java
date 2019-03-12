@@ -1,6 +1,6 @@
-package ds;
+package abc.algo;
 
-interface BinarySearch {
+public interface BinarySearch {
 
     public <T> int search(T val, T[] items, Comparator<T> comparator);
 

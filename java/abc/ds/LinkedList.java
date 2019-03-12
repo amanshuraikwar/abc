@@ -1,6 +1,6 @@
-package ds;
+package abc.ds;
 
-import static ds.L.*;
+import static abc.util.L.*;
 
 public class LinkedList<DataType> {
 

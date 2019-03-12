@@ -1,4 +1,4 @@
-package ds;
+package abc.ds;
 
 public interface Stack<T> {
 

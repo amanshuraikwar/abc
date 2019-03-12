@@ -1,6 +1,6 @@
-package ds;
+package abc.util;
 
-import static ds.L.*;
+import static abc.util.L.*;
 
 public class UTest {
 	

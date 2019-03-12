@@ -1,4 +1,4 @@
-package ds;
+package abc.util;
 
 public class L {
 	

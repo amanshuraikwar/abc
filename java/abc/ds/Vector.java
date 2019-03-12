@@ -1,4 +1,4 @@
-package ds;
+package abc.ds;
 
 public class Vector<DataType> {
 	
@@ -181,7 +181,7 @@ public class Vector<DataType> {
 		return -1;
 	}
 
-	int limit() {
+	public int limit() {
 		return limit;
 	}
 

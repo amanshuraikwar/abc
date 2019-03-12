@@ -1,4 +1,4 @@
-package ds;
+package abc.algo;
 
 import java.lang.Math;
 

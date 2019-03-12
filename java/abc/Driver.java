@@ -1,6 +1,8 @@
-package ds;
+package abc;
 
-import static ds.UTest.*;
+import static abc.util.UTest.*;
+import abc.ds.*;
+import abc.algo.*;
 
 public class Driver {
 	
@@ -28,6 +30,8 @@ public class Driver {
 	}
 
 	private static void driveBinarySearch() {
+
+		setTestContext("BinarySearch");
 
 		Integer[] sortedInput = new Integer[]{-67, -34, -12, 0, 1, 56, 87, 198, 235};
 		BinarySearch.Comparator<Integer> comparator = new BinarySearch.Comparator<Integer>() {
@@ -67,6 +71,8 @@ public class Driver {
 	}
 
 	private static void driveDfs() {
+
+		setTestContext("Dfs");
 
 		Tree.Node<Integer> root = new Tree.Node<>(1);
 		Tree.Node<Integer> child1 = new Tree.Node<>(2);
@@ -113,6 +119,8 @@ public class Driver {
 
 	private static void driveBfs() {
 
+		setTestContext("Bfs");
+
 		Tree.Node<Integer> root = new Tree.Node<>(1);
 		Tree.Node<Integer> child1 = new Tree.Node<>(2);
 		Tree.Node<Integer> child2 = new Tree.Node<>(3);
@@ -149,6 +157,8 @@ public class Driver {
 
 	private static void driveTreeTraversals() {
 
+		setTestContext("TreeTraversals");
+
 		Tree.Node<Integer> root = new Tree.Node<>(1);
 		Tree.Node<Integer> child1 = new Tree.Node<>(2);
 		Tree.Node<Integer> child2 = new Tree.Node<>(3);
@@ -182,6 +192,8 @@ public class Driver {
 
 	private static void driveAbsolute() {
 
+		setTestContext("Absolute");
+
 		AbsoluteInteger absoluteInteger = new AbsoluteInteger.TwosCompliment();
 		
 		assertEquals(235534, absoluteInteger.abs(235534));
@@ -194,6 +206,8 @@ public class Driver {
 	}
 
 	private static void driveSwap() {
+
+		setTestContext("Swap");
 
 		int a = 1;
 		int b = 2;
@@ -248,6 +262,8 @@ public class Driver {
 
 	private static void drivePowerTwoRounder() {
 		
+		setTestContext("PowerTwoRounder");
+
 		PowerTwoRounder powerTwoRounder = new PowerTwoRounder.SimplePowerTwoRounder();
 		
 		assertEquals(-1, powerTwoRounder.round(-1));
