@@ -3,6 +3,7 @@ package abc;
 import static abc.util.UTest.*;
 import abc.ds.*;
 import abc.algo.*;
+import abc.util.Comparator;
 
 public class Driver {
 	
@@ -27,6 +28,181 @@ public class Driver {
 		driveBfs();
 		driveDfs();
 		driveBinarySearch();
+		driveBinarySearchTreeBasic();
+	}
+
+	private static void driveBinarySearchTreeBasic() {
+		
+		setTestContext("BinarySearchTreeBasic");
+
+		Comparator<Integer> comparator = new Comparator<Integer>() {
+			@Override
+			public int compare(Integer expectedBig, Integer expectedSmall) {
+				return expectedBig - expectedSmall;
+			}
+		};
+
+		BinarySearchTree bst = new BinarySearchTree.SimpleBinarySearchTree(comparator);
+
+		// Tree:
+		//
+		//          8
+		//         / \
+		//        3   10
+		//       / \    \
+		//      1   6    \
+		//         / \    \
+		//        4   7    14
+		//                /
+		//              13
+		//
+		// Taken from: https://www.geeksforgeeks.org/binary-search-tree-data-structure/
+
+		assertEquals(true, bst.add(8));
+		assertEquals(true, bst.add(3));
+		assertEquals(true, bst.add(10));
+		assertEquals(true, bst.add(1));
+		assertEquals(true, bst.add(6));
+		assertEquals(true, bst.add(14));
+		assertEquals(true, bst.add(4));
+		assertEquals(true, bst.add(7));
+		assertEquals(true, bst.add(13));
+
+		BinarySearchTreeAlgo.Traversaler tr = new BinarySearchTreeAlgo.SimpleTraversaler();
+
+		assertEquals("[8, 3, 10, 1, 6, 14, 4, 7, 13]", tr.levelOrder(bst.getRoot()).toString());
+		assertEquals("[1, 3, 4, 6, 7, 8, 10, 13, 14]", tr.inOrder(bst.getRoot()).toString());
+		assertEquals("[14, 13, 10, 8, 7, 6, 4, 3, 1]", tr.reverseOrder(bst.getRoot()).toString());
+		assertEquals("[8, 3, 1, 6, 4, 7, 10, 14, 13]", tr.preOrder(bst.getRoot()).toString());
+		assertEquals("[1, 4, 7, 6, 3, 13, 14, 10, 8]", tr.postOrder(bst.getRoot()).toString());
+
+		assertEquals(true, bst.remove(13));
+
+		// Modified Tree:
+		//
+		//          8
+		//         / \
+		//        3   10
+		//       / \    \
+		//      1   6   14
+		//         / \
+		//        4   7
+		//
+
+		assertEquals("[8, 3, 10, 1, 6, 14, 4, 7]", tr.levelOrder(bst.getRoot()).toString());
+		assertEquals("[1, 3, 4, 6, 7, 8, 10, 14]", tr.inOrder(bst.getRoot()).toString());
+
+		assertEquals(true, bst.add(13));
+
+		// Modified Tree:
+		//
+		//          8
+		//         / \
+		//        3   10
+		//       / \    \
+		//      1   6    \
+		//         / \    \
+		//        4   7    14
+		//                /
+		//              13
+		//
+
+		assertEquals(true, bst.remove(14));
+
+		// Modified Tree:
+		//
+		//          8
+		//         / \
+		//        3   10
+		//       / \    \
+		//      1   6    13
+		//         / \
+		//        4   7
+		//
+
+		assertEquals("[8, 3, 10, 1, 6, 13, 4, 7]", tr.levelOrder(bst.getRoot()).toString());
+		assertEquals("[1, 3, 4, 6, 7, 8, 10, 13]", tr.inOrder(bst.getRoot()).toString());
+
+		assertEquals(true, bst.remove(6));
+
+		// Modified Tree:
+		//
+		//          8
+		//         / \
+		//        3   10
+		//       / \    \
+		//      1   7    13
+		//         /
+		//        4
+		//
+
+		assertEquals("[8, 3, 10, 1, 7, 13, 4]", tr.levelOrder(bst.getRoot()).toString());
+		assertEquals("[1, 3, 4, 7, 8, 10, 13]", tr.inOrder(bst.getRoot()).toString());
+
+		assertEquals(true, bst.add(0));
+		assertEquals(true, bst.add(12));
+		assertEquals(true, bst.add(20));
+		assertEquals(true, bst.add(16));
+		assertEquals(true, bst.add(14));
+		assertEquals(true, bst.add(18));
+
+		// Modified Tree:
+		//
+		//          8
+		//         / \
+		//        3   10
+		//       / \    \
+		//      1   7    13
+		//     /   /    /  \
+		//    0   4    12   20
+		//                 /
+		//                16
+		//               /  \
+		//              14  18
+		//
+
+		assertEquals("[8, 3, 10, 1, 7, 13, 0, 4, 12, 20, 16, 14, 18]", tr.levelOrder(bst.getRoot()).toString());
+		assertEquals("[0, 1, 3, 4, 7, 8, 10, 12, 13, 14, 16, 18, 20]", tr.inOrder(bst.getRoot()).toString());
+
+		assertEquals(true, bst.remove(8));
+		
+		// Modified Tree:
+		//
+		//          10
+		//         / \
+		//        3   13
+		//       / \    \
+		//      1   7    14
+		//     /   /    /  \
+		//    0   4    12  20
+		//                 /
+		//                16
+		//                  \
+		//                  18
+		//
+
+		assertEquals("[10, 3, 13, 1, 7, 14, 0, 4, 12, 20, 16, 18]", tr.levelOrder(bst.getRoot()).toString());
+		assertEquals("[0, 1, 3, 4, 7, 10, 13, 12, 14, 16, 18, 20]", tr.inOrder(bst.getRoot()).toString());
+
+		assertEquals(true, bst.remove(3));
+
+		// Modified Tree:
+		//
+		//          10
+		//         / \
+		//        4   13
+		//       / \    \
+		//      1   7    14
+		//     /        /  \
+		//    0        12  20
+		//                 /
+		//                16
+		//                  \
+		//                  18
+		//
+
+		assertEquals("[10, 4, 13, 1, 7, 14, 0, 12, 20, 16, 18]", tr.levelOrder(bst.getRoot()).toString());
+		assertEquals("[0, 1, 4, 7, 10, 13, 12, 14, 16, 18, 20]", tr.inOrder(bst.getRoot()).toString());
 	}
 
 	private static void driveBinarySearch() {
@@ -174,7 +350,7 @@ public class Driver {
 
 		child2.addChild(new Tree.Node<>(6));
 
-		// graph:
+		// tree:
 		//      1
 		//     / \
 		//    2  3

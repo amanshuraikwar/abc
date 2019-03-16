@@ -1,7 +1,7 @@
 echo ""
 echo "[SCRIPT] Compiling and Running............STARTED"
 echo ""
-javac -verbose -Xstdout log.txt $(find abc -name "*.java") && java abc.Driver >> out.txt
+javac -Xstdout log.txt $(find abc -name "*.java") && java abc.Driver >> out.txt
 echo "[SCRIPT] Compile............STARTED"
 echo ""
 cat log.txt
