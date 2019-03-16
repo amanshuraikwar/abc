@@ -29,6 +29,110 @@ public class Driver {
 		driveDfs();
 		driveBinarySearch();
 		driveBinarySearchTreeBasic();
+		driveBstValidator();
+	}
+
+	private static void driveBstValidator() {
+
+		setTestContext("BstValidator");
+
+		Comparator<Integer> comparator = new Comparator<Integer>() {
+			@Override
+			public int compare(Integer expectedBig, Integer expectedSmall) {
+				return expectedBig - expectedSmall;
+			}
+		};
+
+		BinarySearchTree bst = new BinarySearchTree.SimpleBinarySearchTree(comparator);
+
+		BinarySearchTreeAlgo.Validator validator = new BinarySearchTreeAlgo.RecursiveValidator(comparator);
+
+		bst.add(8);
+
+		// only root
+
+		assertEquals(true, validator.isBst(bst.getRoot()));
+
+		bst.add(3);
+
+		assertEquals(true, validator.isBst(bst.getRoot()));
+
+		bst.add(10);
+
+		assertEquals(true, validator.isBst(bst.getRoot()));
+
+		bst.add(1);
+		bst.add(6);
+		bst.add(14);
+		bst.add(4);
+		bst.add(7);
+		bst.add(13);
+
+		// Tree:
+		//
+		//          8
+		//         / \
+		//        3   10
+		//       / \    \
+		//      1   6    \
+		//         / \    \
+		//        4   7    14
+		//                /
+		//              13
+		//
+		// Taken from: https://www.geeksforgeeks.org/binary-search-tree-data-structure/
+
+
+		assertEquals(true, validator.isBst(bst.getRoot()));
+
+		BinarySearchTreeAlgo.Traversaler tr = new BinarySearchTreeAlgo.SimpleTraversaler();
+
+		BinarySearchTree.Node<Integer> node = new BinarySearchTree.Node<Integer>(40);
+		
+		BinarySearchTree.Node<Integer> root = node;
+
+		BinarySearchTree.Node<Integer> node1 = new BinarySearchTree.Node<Integer>(30);
+		BinarySearchTree.Node<Integer> node2 = new BinarySearchTree.Node<Integer>(60);
+
+		node.left = node1;
+		node.right = node2;
+
+		assertEquals(true, validator.isBst(root));
+
+		node.left = node2;
+		node.right = null;
+
+		assertEquals(false, validator.isBst(root));
+
+		node.left = null;
+		node.right = node1;
+
+		assertEquals(false, validator.isBst(root));
+
+		node.left = node1;
+		node.right = node2;
+
+		node = node1;
+
+		node1 = new BinarySearchTree.Node<Integer>(10);
+		node2 = new BinarySearchTree.Node<Integer>(35);
+
+		node.left = node1;
+		node.right = node2;
+
+		assertEquals(true, validator.isBst(root));
+
+		node = node1;
+
+		node1 = new BinarySearchTree.Node<Integer>(5);
+		node2 = new BinarySearchTree.Node<Integer>(15);
+
+		node.left = node2;
+		node.right = node1;
+
+		assertEquals("[40, 30, 60, 10, 35, 15, 5]", tr.levelOrder(root).toString());
+
+		assertEquals(false, validator.isBst(root));
 	}
 
 	private static void driveBinarySearchTreeBasic() {
@@ -278,6 +382,23 @@ public class Driver {
 
 		setTestContext(baseContext + "-height");
 		assertEquals(6, bst.height());
+
+		// TODO: DEBUG
+		// assertEquals(true, bst.remove(10));
+		// assertEquals(true, bst.remove(4));
+		// assertEquals(true, bst.remove(13));
+		// assertEquals(true, bst.remove(1));
+		// assertEquals(true, bst.remove(7));
+		// assertEquals(true, bst.remove(14));
+		
+		// assertEquals("[]", tr.levelOrder(bst.getRoot()).toString());
+		// assertEquals("[]", tr.preOrder(bst.getRoot()).toString());
+		// assertEquals("[]", tr.inOrder(bst.getRoot()).toString());
+		// assertEquals(true, bst.remove(12));
+		
+		// assertEquals(true, bst.remove(20));
+		// assertEquals(true, bst.remove(16));
+		// assertEquals(true, bst.remove(18));
 	}
 
 	private static void driveBinarySearch() {

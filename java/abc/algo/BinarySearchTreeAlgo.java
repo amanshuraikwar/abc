@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import abc.ds.BinarySearchTree.Node;
 import abc.ds.Queue;
+import abc.util.Comparator;
 
 public interface BinarySearchTreeAlgo {
 
@@ -113,20 +114,36 @@ public interface BinarySearchTreeAlgo {
 		}
 	}
 
-    interface MinMax {
-        public <T> T min(Node<T> root);
+    interface Validator<T> {
+        public boolean isBst(Node<T> node);
     }
 
-    class RecursiveMinMax implements MinMax {
+    class RecursiveValidator<T> implements Validator<T> {
+
+        private Comparator<T> comparator;
+
+        public RecursiveValidator(Comparator<T> comparator) {
+            this.comparator = comparator;
+        }
 
         @Override
-        public <T> T min(Node<T> root) {
+        public boolean isBst(Node<T> node) {
             
-            if (root.left == null) {
-                return root.val;
-            } else {
-                return min(root.left);
+            if (node == null) {
+                return true;
             }
+
+            boolean rv = true;
+
+            if (node.left != null) {
+                rv &= comparator.compare(node.val, node.left.val) > 0;
+            }
+
+            if (node.right != null) {
+                rv &= comparator.compare(node.right.val, node.val) > 0;
+            }
+
+            return rv & isBst(node.left) & isBst(node.right);
         }
     }
 }
