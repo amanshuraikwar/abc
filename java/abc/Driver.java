@@ -33,7 +33,9 @@ public class Driver {
 
 	private static void driveBinarySearchTreeBasic() {
 		
-		setTestContext("BinarySearchTreeBasic");
+		final String baseContext = "BinarySearchTreeBasic";
+
+		setTestContext(baseContext);
 
 		Comparator<Integer> comparator = new Comparator<Integer>() {
 			@Override
@@ -58,6 +60,8 @@ public class Driver {
 		//
 		// Taken from: https://www.geeksforgeeks.org/binary-search-tree-data-structure/
 
+		setTestContext(baseContext + "-add");
+
 		assertEquals(true, bst.add(8));
 		assertEquals(true, bst.add(3));
 		assertEquals(true, bst.add(10));
@@ -76,6 +80,13 @@ public class Driver {
 		assertEquals("[8, 3, 1, 6, 4, 7, 10, 14, 13]", tr.preOrder(bst.getRoot()).toString());
 		assertEquals("[1, 4, 7, 6, 3, 13, 14, 10, 8]", tr.postOrder(bst.getRoot()).toString());
 
+		setTestContext(baseContext + "-min-max");
+
+		assertEquals(1, (int) bst.min());
+		assertEquals(14, (int) bst.max());
+
+		setTestContext(baseContext + "-remove");
+
 		assertEquals(true, bst.remove(13));
 
 		// Modified Tree:
@@ -92,6 +103,13 @@ public class Driver {
 		assertEquals("[8, 3, 10, 1, 6, 14, 4, 7]", tr.levelOrder(bst.getRoot()).toString());
 		assertEquals("[1, 3, 4, 6, 7, 8, 10, 14]", tr.inOrder(bst.getRoot()).toString());
 
+		setTestContext(baseContext + "-min-max");
+
+		assertEquals(1, (int) bst.min());
+		assertEquals(14, (int) bst.max());
+
+		setTestContext(baseContext + "-add");
+
 		assertEquals(true, bst.add(13));
 
 		// Modified Tree:
@@ -106,6 +124,8 @@ public class Driver {
 		//                /
 		//              13
 		//
+
+		setTestContext(baseContext + "-remove");
 
 		assertEquals(true, bst.remove(14));
 
@@ -139,6 +159,13 @@ public class Driver {
 		assertEquals("[8, 3, 10, 1, 7, 13, 4]", tr.levelOrder(bst.getRoot()).toString());
 		assertEquals("[1, 3, 4, 7, 8, 10, 13]", tr.inOrder(bst.getRoot()).toString());
 
+		setTestContext(baseContext + "-min-max");
+
+		assertEquals(1, (int) bst.min());
+		assertEquals(13, (int) bst.max());
+
+		setTestContext(baseContext + "-add");
+
 		assertEquals(true, bst.add(0));
 		assertEquals(true, bst.add(12));
 		assertEquals(true, bst.add(20));
@@ -163,6 +190,13 @@ public class Driver {
 
 		assertEquals("[8, 3, 10, 1, 7, 13, 0, 4, 12, 20, 16, 14, 18]", tr.levelOrder(bst.getRoot()).toString());
 		assertEquals("[0, 1, 3, 4, 7, 8, 10, 12, 13, 14, 16, 18, 20]", tr.inOrder(bst.getRoot()).toString());
+
+		setTestContext(baseContext + "-min-max");
+
+		assertEquals(0, (int) bst.min());
+		assertEquals(20, (int) bst.max());
+
+		setTestContext(baseContext + "-remove");
 
 		assertEquals(true, bst.remove(8));
 		
@@ -203,6 +237,11 @@ public class Driver {
 
 		assertEquals("[10, 4, 13, 1, 7, 14, 0, 12, 20, 16, 18]", tr.levelOrder(bst.getRoot()).toString());
 		assertEquals("[0, 1, 4, 7, 10, 13, 12, 14, 16, 18, 20]", tr.inOrder(bst.getRoot()).toString());
+
+		setTestContext(baseContext + "-min-max");
+
+		assertEquals(0, (int) bst.min());
+		assertEquals(20, (int) bst.max());
 	}
 
 	private static void driveBinarySearch() {

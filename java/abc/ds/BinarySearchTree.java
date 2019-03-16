@@ -10,8 +10,8 @@ public interface BinarySearchTree<T> {
     public Node<T> getRoot();
     public boolean add(T val);
     public boolean remove(T val);
-    // public T min();
-    // public T max();
+    public T min();
+    public T max();
     // public int height();
 
     class Node<T> {
@@ -120,6 +120,26 @@ public interface BinarySearchTree<T> {
             return true;
         }
 
+        @Override 
+        public T min() {
+            
+            if (root == null) {
+                return null;
+            }
+
+            return findMin(root, null).get(0).val;
+        }
+
+        @Override
+        public T max() {
+
+            if (root == null) {
+                return null;
+            }
+
+            return findMax(root, null).get(0).val;
+        }
+
         private void removeNode(Node<T> node, Node<T> parent) {
             
             if (isLeaf(node)) {
@@ -161,6 +181,18 @@ public interface BinarySearchTree<T> {
             }
 
             return findMin(node.left, node);
+        }
+
+        private List<Node<T>> findMax(Node<T> node, Node<T> parent) {
+
+            if (node.right == null) {
+                List<Node<T>> rv = new ArrayList<>();
+                rv.add(node);
+                rv.add(parent);
+                return rv;
+            }
+
+            return findMax(node.right, node);
         }
 
         private boolean isLeaf(Node<T> node) {
