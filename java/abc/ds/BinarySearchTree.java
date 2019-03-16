@@ -2,6 +2,7 @@ package abc.ds;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.lang.Math;
 
 import abc.util.Comparator;
 
@@ -12,7 +13,7 @@ public interface BinarySearchTree<T> {
     public boolean remove(T val);
     public T min();
     public T max();
-    // public int height();
+    public int height();
 
     class Node<T> {
 
@@ -138,6 +139,20 @@ public interface BinarySearchTree<T> {
             }
 
             return findMax(root, null).get(0).val;
+        }
+
+        @Override
+        public int height() {
+            return findHeight(root, 0);
+        }
+
+        private int findHeight(Node<T> root, int curHeight) {
+
+            if (root == null) {
+                return curHeight;
+            }
+
+            return Math.max(findHeight(root.left, curHeight + 1), findHeight(root.right, curHeight + 1));
         }
 
         private void removeNode(Node<T> node, Node<T> parent) {

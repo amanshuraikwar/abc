@@ -60,9 +60,30 @@ public class Driver {
 		//
 		// Taken from: https://www.geeksforgeeks.org/binary-search-tree-data-structure/
 
+		setTestContext(baseContext + "-min-max");
+
+		assertEquals("null", bst.min() + "");
+		assertEquals("null", bst.max() + "");
+
+		setTestContext(baseContext + "-height");
+		assertEquals(0, bst.height());
+
 		setTestContext(baseContext + "-add");
 
 		assertEquals(true, bst.add(8));
+
+		// only root present
+
+		setTestContext(baseContext + "-min-max");
+
+		assertEquals(8, (int) bst.min());
+		assertEquals(8, (int) bst.max());
+
+		setTestContext(baseContext + "-height");
+		assertEquals(1, bst.height());
+
+		setTestContext(baseContext + "-add");
+
 		assertEquals(true, bst.add(3));
 		assertEquals(true, bst.add(10));
 		assertEquals(true, bst.add(1));
@@ -84,6 +105,9 @@ public class Driver {
 
 		assertEquals(1, (int) bst.min());
 		assertEquals(14, (int) bst.max());
+
+		setTestContext(baseContext + "-height");
+		assertEquals(4, bst.height());
 
 		setTestContext(baseContext + "-remove");
 
@@ -107,6 +131,9 @@ public class Driver {
 
 		assertEquals(1, (int) bst.min());
 		assertEquals(14, (int) bst.max());
+
+		setTestContext(baseContext + "-height");
+		assertEquals(4, bst.height());
 
 		setTestContext(baseContext + "-add");
 
@@ -164,6 +191,9 @@ public class Driver {
 		assertEquals(1, (int) bst.min());
 		assertEquals(13, (int) bst.max());
 
+		setTestContext(baseContext + "-height");
+		assertEquals(4, bst.height());
+
 		setTestContext(baseContext + "-add");
 
 		assertEquals(true, bst.add(0));
@@ -195,6 +225,9 @@ public class Driver {
 
 		assertEquals(0, (int) bst.min());
 		assertEquals(20, (int) bst.max());
+
+		setTestContext(baseContext + "-height");
+		assertEquals(6, bst.height());
 
 		setTestContext(baseContext + "-remove");
 
@@ -242,6 +275,9 @@ public class Driver {
 
 		assertEquals(0, (int) bst.min());
 		assertEquals(20, (int) bst.max());
+
+		setTestContext(baseContext + "-height");
+		assertEquals(6, bst.height());
 	}
 
 	private static void driveBinarySearch() {
