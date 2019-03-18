@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import abc.ds.BinarySearchTree.Node;
 import abc.ds.Queue;
 import abc.util.Comparator;
+import static abc.util.L.*;
 
 public interface BinarySearchTreeAlgo {
 
@@ -121,29 +122,35 @@ public interface BinarySearchTreeAlgo {
     class RecursiveValidator<T> implements Validator<T> {
 
         private Comparator<T> comparator;
+        private T min;
+        private T max;
 
-        public RecursiveValidator(Comparator<T> comparator) {
+        public RecursiveValidator(Comparator<T> comparator, T min, T max) {
             this.comparator = comparator;
+            this.min = min;
+            this.max = max;
         }
 
+        // this is wrong
         @Override
         public boolean isBst(Node<T> node) {
-            
+            return isBst(node, min, max);
+        }
+
+        private boolean isBst(Node<T> node, T min, T max) {
+
             if (node == null) {
                 return true;
             }
 
-            boolean rv = true;
+            int maxComparedVal = comparator.compare(max, node.val);
+            int minComparedVal = comparator.compare(node.val, min);
 
-            if (node.left != null) {
-                rv &= comparator.compare(node.val, node.left.val) > 0;
+            if (maxComparedVal < 0 || minComparedVal < 0) {
+                return false;
+            } else {
+                return isBst(node.left, min, node.val) & isBst(node.right, node.val, max);
             }
-
-            if (node.right != null) {
-                rv &= comparator.compare(node.right.val, node.val) > 0;
-            }
-
-            return rv & isBst(node.left) & isBst(node.right);
         }
     }
 }

@@ -29,110 +29,7 @@ public class Driver {
 		driveDfs();
 		driveBinarySearch();
 		driveBinarySearchTreeBasic();
-		driveBstValidator();
-	}
 
-	private static void driveBstValidator() {
-
-		setTestContext("BstValidator");
-
-		Comparator<Integer> comparator = new Comparator<Integer>() {
-			@Override
-			public int compare(Integer expectedBig, Integer expectedSmall) {
-				return expectedBig - expectedSmall;
-			}
-		};
-
-		BinarySearchTree bst = new BinarySearchTree.SimpleBinarySearchTree(comparator);
-
-		BinarySearchTreeAlgo.Validator validator = new BinarySearchTreeAlgo.RecursiveValidator(comparator);
-
-		bst.add(8);
-
-		// only root
-
-		assertEquals(true, validator.isBst(bst.getRoot()));
-
-		bst.add(3);
-
-		assertEquals(true, validator.isBst(bst.getRoot()));
-
-		bst.add(10);
-
-		assertEquals(true, validator.isBst(bst.getRoot()));
-
-		bst.add(1);
-		bst.add(6);
-		bst.add(14);
-		bst.add(4);
-		bst.add(7);
-		bst.add(13);
-
-		// Tree:
-		//
-		//          8
-		//         / \
-		//        3   10
-		//       / \    \
-		//      1   6    \
-		//         / \    \
-		//        4   7    14
-		//                /
-		//              13
-		//
-		// Taken from: https://www.geeksforgeeks.org/binary-search-tree-data-structure/
-
-
-		assertEquals(true, validator.isBst(bst.getRoot()));
-
-		BinarySearchTreeAlgo.Traversaler tr = new BinarySearchTreeAlgo.SimpleTraversaler();
-
-		BinarySearchTree.Node<Integer> node = new BinarySearchTree.Node<Integer>(40);
-		
-		BinarySearchTree.Node<Integer> root = node;
-
-		BinarySearchTree.Node<Integer> node1 = new BinarySearchTree.Node<Integer>(30);
-		BinarySearchTree.Node<Integer> node2 = new BinarySearchTree.Node<Integer>(60);
-
-		node.left = node1;
-		node.right = node2;
-
-		assertEquals(true, validator.isBst(root));
-
-		node.left = node2;
-		node.right = null;
-
-		assertEquals(false, validator.isBst(root));
-
-		node.left = null;
-		node.right = node1;
-
-		assertEquals(false, validator.isBst(root));
-
-		node.left = node1;
-		node.right = node2;
-
-		node = node1;
-
-		node1 = new BinarySearchTree.Node<Integer>(10);
-		node2 = new BinarySearchTree.Node<Integer>(35);
-
-		node.left = node1;
-		node.right = node2;
-
-		assertEquals(true, validator.isBst(root));
-
-		node = node1;
-
-		node1 = new BinarySearchTree.Node<Integer>(5);
-		node2 = new BinarySearchTree.Node<Integer>(15);
-
-		node.left = node2;
-		node.right = node1;
-
-		assertEquals("[40, 30, 60, 10, 35, 15, 5]", tr.levelOrder(root).toString());
-
-		assertEquals(false, validator.isBst(root));
 	}
 
 	private static void driveBinarySearchTreeBasic() {
@@ -150,7 +47,27 @@ public class Driver {
 
 		BinarySearchTree bst = new BinarySearchTree.SimpleBinarySearchTree(comparator);
 
-		// Tree:
+		BinarySearchTreeAlgo.Validator validator = new BinarySearchTreeAlgo.RecursiveValidator(comparator, -1, -1>>>1);
+
+		BinarySearchTreeAlgo.Traversaler tr = new BinarySearchTreeAlgo.SimpleTraversaler();
+
+		setTestContext(baseContext + "-check-bst");
+
+		assertEquals(true, validator.isBst(bst.getRoot()));
+
+		setTestContext(baseContext + "-add");
+
+		assertEquals(true, bst.add(8));
+		assertEquals(true, bst.add(3));
+		assertEquals(true, bst.add(10));
+		assertEquals(true, bst.add(1));
+		assertEquals(true, bst.add(6));
+		assertEquals(true, bst.add(14));
+		assertEquals(true, bst.add(4));
+		assertEquals(true, bst.add(7));
+		assertEquals(true, bst.add(13));
+
+		// Modified Tree:
 		//
 		//          8
 		//         / \
@@ -164,55 +81,11 @@ public class Driver {
 		//
 		// Taken from: https://www.geeksforgeeks.org/binary-search-tree-data-structure/
 
-		setTestContext(baseContext + "-min-max");
-
-		assertEquals("null", bst.min() + "");
-		assertEquals("null", bst.max() + "");
-
-		setTestContext(baseContext + "-height");
-		assertEquals(0, bst.height());
-
-		setTestContext(baseContext + "-add");
-
-		assertEquals(true, bst.add(8));
-
-		// only root present
-
-		setTestContext(baseContext + "-min-max");
-
-		assertEquals(8, (int) bst.min());
-		assertEquals(8, (int) bst.max());
-
-		setTestContext(baseContext + "-height");
-		assertEquals(1, bst.height());
-
-		setTestContext(baseContext + "-add");
-
-		assertEquals(true, bst.add(3));
-		assertEquals(true, bst.add(10));
-		assertEquals(true, bst.add(1));
-		assertEquals(true, bst.add(6));
-		assertEquals(true, bst.add(14));
-		assertEquals(true, bst.add(4));
-		assertEquals(true, bst.add(7));
-		assertEquals(true, bst.add(13));
-
-		BinarySearchTreeAlgo.Traversaler tr = new BinarySearchTreeAlgo.SimpleTraversaler();
-
+		setTestContext(baseContext + "-check-bst");
+		
+		assertEquals(true, validator.isBst(bst.getRoot()));
 		assertEquals("[8, 3, 10, 1, 6, 14, 4, 7, 13]", tr.levelOrder(bst.getRoot()).toString());
-		assertEquals("[1, 3, 4, 6, 7, 8, 10, 13, 14]", tr.inOrder(bst.getRoot()).toString());
-		assertEquals("[14, 13, 10, 8, 7, 6, 4, 3, 1]", tr.reverseOrder(bst.getRoot()).toString());
-		assertEquals("[8, 3, 1, 6, 4, 7, 10, 14, 13]", tr.preOrder(bst.getRoot()).toString());
-		assertEquals("[1, 4, 7, 6, 3, 13, 14, 10, 8]", tr.postOrder(bst.getRoot()).toString());
-
-		setTestContext(baseContext + "-min-max");
-
-		assertEquals(1, (int) bst.min());
-		assertEquals(14, (int) bst.max());
-
-		setTestContext(baseContext + "-height");
-		assertEquals(4, bst.height());
-
+		
 		setTestContext(baseContext + "-remove");
 
 		assertEquals(true, bst.remove(13));
@@ -228,16 +101,10 @@ public class Driver {
 		//        4   7
 		//
 
+		setTestContext(baseContext + "-check-bst");
+
+		assertEquals(true, validator.isBst(bst.getRoot()));		
 		assertEquals("[8, 3, 10, 1, 6, 14, 4, 7]", tr.levelOrder(bst.getRoot()).toString());
-		assertEquals("[1, 3, 4, 6, 7, 8, 10, 14]", tr.inOrder(bst.getRoot()).toString());
-
-		setTestContext(baseContext + "-min-max");
-
-		assertEquals(1, (int) bst.min());
-		assertEquals(14, (int) bst.max());
-
-		setTestContext(baseContext + "-height");
-		assertEquals(4, bst.height());
 
 		setTestContext(baseContext + "-add");
 
@@ -271,8 +138,12 @@ public class Driver {
 		//        4   7
 		//
 
+		setTestContext(baseContext + "-check-bst");
+
+		assertEquals(true, validator.isBst(bst.getRoot()));
 		assertEquals("[8, 3, 10, 1, 6, 13, 4, 7]", tr.levelOrder(bst.getRoot()).toString());
-		assertEquals("[1, 3, 4, 6, 7, 8, 10, 13]", tr.inOrder(bst.getRoot()).toString());
+
+		setTestContext(baseContext + "-remove");
 
 		assertEquals(true, bst.remove(6));
 
@@ -287,17 +158,11 @@ public class Driver {
 		//        4
 		//
 
+		setTestContext(baseContext + "-check-bst");
+
+		assertEquals(true, validator.isBst(bst.getRoot()));
 		assertEquals("[8, 3, 10, 1, 7, 13, 4]", tr.levelOrder(bst.getRoot()).toString());
-		assertEquals("[1, 3, 4, 7, 8, 10, 13]", tr.inOrder(bst.getRoot()).toString());
-
-		setTestContext(baseContext + "-min-max");
-
-		assertEquals(1, (int) bst.min());
-		assertEquals(13, (int) bst.max());
-
-		setTestContext(baseContext + "-height");
-		assertEquals(4, bst.height());
-
+		
 		setTestContext(baseContext + "-add");
 
 		assertEquals(true, bst.add(0));
@@ -322,38 +187,36 @@ public class Driver {
 		//              14  18
 		//
 
+		setTestContext(baseContext + "-check-bst");
+		
+		assertEquals(true, validator.isBst(bst.getRoot()));
 		assertEquals("[8, 3, 10, 1, 7, 13, 0, 4, 12, 20, 16, 14, 18]", tr.levelOrder(bst.getRoot()).toString());
-		assertEquals("[0, 1, 3, 4, 7, 8, 10, 12, 13, 14, 16, 18, 20]", tr.inOrder(bst.getRoot()).toString());
-
-		setTestContext(baseContext + "-min-max");
-
-		assertEquals(0, (int) bst.min());
-		assertEquals(20, (int) bst.max());
-
-		setTestContext(baseContext + "-height");
-		assertEquals(6, bst.height());
 
 		setTestContext(baseContext + "-remove");
 
 		assertEquals(true, bst.remove(8));
-		
+
 		// Modified Tree:
 		//
 		//          10
 		//         / \
-		//        3   13
-		//       / \    \
-		//      1   7    14
-		//     /   /    /  \
-		//    0   4    12  20
+		//        3   \
+		//       / \   \
+		//      1   7   13
+		//     /   /   /  \
+		//    0   4   12  20
 		//                 /
 		//                16
-		//                  \
-		//                  18
+		//               /  \
+		//             14   18
 		//
 
-		assertEquals("[10, 3, 13, 1, 7, 14, 0, 4, 12, 20, 16, 18]", tr.levelOrder(bst.getRoot()).toString());
-		assertEquals("[0, 1, 3, 4, 7, 10, 13, 12, 14, 16, 18, 20]", tr.inOrder(bst.getRoot()).toString());
+		setTestContext(baseContext + "-check-bst");
+		
+		assertEquals(true, validator.isBst(bst.getRoot()));
+		assertEquals("[10, 3, 13, 1, 7, 12, 20, 0, 4, 16, 14, 18]", tr.levelOrder(bst.getRoot()).toString());
+		
+		setTestContext(baseContext + "-remove");
 
 		assertEquals(true, bst.remove(3));
 
@@ -361,44 +224,218 @@ public class Driver {
 		//
 		//          10
 		//         / \
-		//        4   13
-		//       / \    \
-		//      1   7    14
-		//     /        /  \
-		//    0        12  20
+		//        4   \
+		//       / \   \
+		//      1   7   13
+		//     /       /  \
+		//    0       12  20
 		//                 /
 		//                16
-		//                  \
-		//                  18
+		//               /  \
+		//             14   18
 		//
 
-		assertEquals("[10, 4, 13, 1, 7, 14, 0, 12, 20, 16, 18]", tr.levelOrder(bst.getRoot()).toString());
-		assertEquals("[0, 1, 4, 7, 10, 13, 12, 14, 16, 18, 20]", tr.inOrder(bst.getRoot()).toString());
+		setTestContext(baseContext + "-check-bst");
 
-		setTestContext(baseContext + "-min-max");
-
-		assertEquals(0, (int) bst.min());
-		assertEquals(20, (int) bst.max());
-
-		setTestContext(baseContext + "-height");
-		assertEquals(6, bst.height());
-
-		// TODO: DEBUG
-		// assertEquals(true, bst.remove(10));
-		// assertEquals(true, bst.remove(4));
-		// assertEquals(true, bst.remove(13));
-		// assertEquals(true, bst.remove(1));
-		// assertEquals(true, bst.remove(7));
-		// assertEquals(true, bst.remove(14));
+		assertEquals(true, validator.isBst(bst.getRoot()));
+		assertEquals("[10, 4, 13, 1, 7, 12, 20, 0, 16, 14, 18]", tr.levelOrder(bst.getRoot()).toString());
 		
-		// assertEquals("[]", tr.levelOrder(bst.getRoot()).toString());
-		// assertEquals("[]", tr.preOrder(bst.getRoot()).toString());
-		// assertEquals("[]", tr.inOrder(bst.getRoot()).toString());
-		// assertEquals(true, bst.remove(12));
+		setTestContext(baseContext + "-remove");
 		
-		// assertEquals(true, bst.remove(20));
-		// assertEquals(true, bst.remove(16));
-		// assertEquals(true, bst.remove(18));
+		assertEquals(true, bst.remove(10));
+
+		// Modified Tree:
+		//
+		//          12
+		//         / \
+		//        4   13
+		//       / \   \
+		//      1   7  20
+		//     /       /
+		//    0       16
+		//           / \   
+		//         14  18
+		//
+
+		setTestContext(baseContext + "-check-bst");
+
+		assertEquals(true, validator.isBst(bst.getRoot()));
+		assertEquals("[12, 4, 13, 1, 7, 20, 0, 16, 14, 18]", tr.levelOrder(bst.getRoot()).toString());
+
+		setTestContext(baseContext + "-remove");
+
+		assertEquals(true, bst.remove(4));
+		
+		// Modified Tree:
+		//
+		//          12
+		//         / \
+		//        7   13
+		//       /     \
+		//      1      20
+		//     /       /
+		//    0       16
+		//           / \   
+		//         14  18
+		//
+
+		setTestContext(baseContext + "-check-bst");
+
+		assertEquals(true, validator.isBst(bst.getRoot()));
+		assertEquals("[12, 7, 13, 1, 20, 0, 16, 14, 18]", tr.levelOrder(bst.getRoot()).toString());
+
+		setTestContext(baseContext + "-remove");
+		
+		assertEquals(true, bst.remove(13));
+
+		// Modified Tree:
+		//
+		//          12
+		//         / \
+		//        7   20
+		//       /   /
+		//      1   16
+		//     /   / \
+		//    0   14 18
+		//
+
+		setTestContext(baseContext + "-check-bst");
+
+		assertEquals(true, validator.isBst(bst.getRoot()));
+		assertEquals("[12, 7, 20, 1, 16, 0, 14, 18]", tr.levelOrder(bst.getRoot()).toString());
+
+		setTestContext(baseContext + "-remove");
+
+		assertEquals(true, bst.remove(1));
+
+		// Modified Tree:
+		//
+		//          12
+		//         / \
+		//        7   20
+		//       /   /
+		//      0   16
+		//         / \
+		//        14 18
+		//
+
+		setTestContext(baseContext + "-check-bst");
+		
+		assertEquals(true, validator.isBst(bst.getRoot()));
+		assertEquals("[12, 7, 20, 0, 16, 14, 18]", tr.levelOrder(bst.getRoot()).toString());
+
+		setTestContext(baseContext + "-remove");
+
+		assertEquals(true, bst.remove(12));
+
+		// Modified Tree:
+		//
+		//          14
+		//         / \
+		//        7   20
+		//       /   /
+		//      0   16
+		//           \
+		//           18
+		//
+
+		setTestContext(baseContext + "-check-bst");
+		
+		assertEquals(true, validator.isBst(bst.getRoot()));
+		assertEquals("[14, 7, 20, 0, 16, 18]", tr.levelOrder(bst.getRoot()).toString());
+
+		setTestContext(baseContext + "-remove");
+
+		assertEquals(true, bst.remove(14));
+		
+		// Modified Tree:
+		//
+		//          16
+		//         / \
+		//        7   20
+		//       /   /
+		//      0   18
+		//
+
+		setTestContext(baseContext + "-check-bst");
+		
+		assertEquals(true, validator.isBst(bst.getRoot()));
+		assertEquals("[16, 7, 20, 0, 18]", tr.levelOrder(bst.getRoot()).toString());
+
+		setTestContext(baseContext + "-remove");
+
+		assertEquals(true, bst.remove(7));
+
+		// Modified Tree:
+		//
+		//          16
+		//         / \
+		//        0   20
+		//           /
+		//          18
+		//
+
+		setTestContext(baseContext + "-check-bst");
+		
+		assertEquals(true, validator.isBst(bst.getRoot()));
+		assertEquals("[16, 0, 20, 18]", tr.levelOrder(bst.getRoot()).toString());
+		
+		setTestContext(baseContext + "-remove");
+		
+		assertEquals(true, bst.remove(20));
+
+		// Modified Tree:
+		//
+		//          16
+		//         / \
+		//        0   18
+		//           
+
+		setTestContext(baseContext + "-check-bst");
+		
+		assertEquals(true, validator.isBst(bst.getRoot()));
+		assertEquals("[16, 0, 18]", tr.levelOrder(bst.getRoot()).toString());
+
+		setTestContext(baseContext + "-remove");
+		
+		assertEquals(true, bst.remove(16));
+
+		// Modified Tree:
+		//
+		//          18
+		//         / 
+		//        0
+		//
+
+		setTestContext(baseContext + "-check-bst");
+		
+		assertEquals(true, validator.isBst(bst.getRoot()));
+		assertEquals("[18, 0]", tr.levelOrder(bst.getRoot()).toString());
+
+		setTestContext(baseContext + "-remove");
+		
+		assertEquals(true, bst.remove(0));
+
+		// Modified Tree:
+		//
+		//          18
+		//
+
+		setTestContext(baseContext + "-check-bst");
+		
+		assertEquals(true, validator.isBst(bst.getRoot()));
+		assertEquals("[18]", tr.levelOrder(bst.getRoot()).toString());
+
+		setTestContext(baseContext + "-remove");
+		
+		assertEquals(true, bst.remove(18));
+
+		// empty tree
+
+		setTestContext(baseContext + "-check-bst");
+
+		assertEquals(true, validator.isBst(bst.getRoot()));
+		assertEquals("[]", tr.levelOrder(bst.getRoot()).toString());
 	}
 
 	private static void driveBinarySearch() {

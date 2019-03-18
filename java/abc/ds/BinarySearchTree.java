@@ -177,11 +177,21 @@ public interface BinarySearchTree<T> {
             } else {
 
                 if (node.left != null) {
-                    node.val = node.left.val;
-                    removeNode(node.left, node);
+                    
+                    if (parent.left == node) {
+                        parent.left = node.left;
+                    } else {
+                        parent.right = node.left;
+                    }
+
                 } else {
-                    node.val = node.right.val;
-                    removeNode(node.right, node);
+
+                    if (parent.left == node) {
+                        parent.left = node.right;
+                    } else {
+                        parent.right = node.right;
+                    }
+                    
                 }
             }
         }
