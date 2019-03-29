@@ -28,8 +28,117 @@ public class Driver {
 		driveBfs();
 		driveDfs();
 		driveBinarySearch();
-		driveBinarySearchTreeBasic();
+		driveBinarySearchTreeBasic(); 
+		driveMaxHeap();
+	}
 
+	private static void driveMaxHeap() {
+		
+		setTestContext("Heap");
+
+		Comparator<Integer> comparator = new Comparator<Integer>() {
+			@Override
+			public int compare(Integer expectedBig, Integer expectedSmall) {
+				return expectedBig - expectedSmall;
+			}
+		};
+
+		Heap<Integer> heap = new Heap.MaxHeap(comparator);
+
+		assertEquals(true, heap.push(1));
+		
+		assertEquals("[1]", heap.toString());
+
+		assertEquals(1, heap.peek());
+		assertEquals(1, heap.pop());
+
+		assertEquals(true, heap.push(1));
+		assertEquals(true, heap.push(2));
+
+		assertEquals("[2, 1]", heap.toString());
+
+		assertEquals(2, heap.peek());
+		assertEquals(2, heap.pop());
+		
+		assertEquals("[1]", heap.toString());
+
+		assertEquals(1, heap.pop());
+
+		assertEquals(true, heap.push(1));
+		assertEquals(true, heap.push(2));
+		assertEquals(true, heap.push(3));
+
+		assertEquals("[3, 1, 2]", heap.toString());
+
+		assertEquals(3, heap.peek());
+
+		assertEquals(true, heap.push(-1));
+		assertEquals(true, heap.push(-300));
+		assertEquals(true, heap.push(20));
+		assertEquals(true, heap.push(-4000));
+
+		assertEquals(20, heap.peek());
+		assertEquals(20, heap.pop());
+
+		assertEquals(3, heap.peek());
+		assertEquals(3, heap.pop());
+
+		assertEquals(2, heap.peek());
+		assertEquals(2, heap.pop());
+
+		assertEquals(1, heap.peek());
+		assertEquals(1, heap.pop());
+
+		assertEquals(-1, heap.peek());
+		assertEquals(-1, heap.pop());
+
+		assertEquals(-300, heap.peek());
+		assertEquals(-300, heap.pop());
+
+		assertEquals(-4000, heap.peek());
+		assertEquals(-4000, heap.pop());
+
+		assertEquals("null", heap.peek()+"");
+		assertEquals("null", heap.pop()+"");
+
+		assertEquals(true, heap.push(400));
+		assertEquals(true, heap.push(1));
+		assertEquals(true, heap.push(300));
+		assertEquals(true, heap.push(600));
+		assertEquals(true, heap.push(0));
+		assertEquals(true, heap.push(700));
+		assertEquals(true, heap.push(-400));
+		assertEquals(true, heap.push(-450));
+		assertEquals(true, heap.push(-10));
+
+		assertEquals(700, heap.peek());
+		assertEquals(700, heap.pop());
+		assertEquals(600, heap.pop());
+		assertEquals(400, heap.pop());
+		assertEquals(300, heap.pop());
+		assertEquals(1, heap.pop());
+		assertEquals(0, heap.pop());
+
+		assertEquals(true, heap.push(400));
+		assertEquals(true, heap.push(1));
+		assertEquals(true, heap.push(300));
+		assertEquals(true, heap.push(600));
+		assertEquals(true, heap.push(0));
+		assertEquals(true, heap.push(700));
+
+		assertEquals(700, heap.peek());
+		assertEquals(700, heap.pop());
+		assertEquals(600, heap.pop());
+		assertEquals(400, heap.pop());
+		assertEquals(300, heap.pop());
+		assertEquals(1, heap.pop());
+		assertEquals(0, heap.pop());
+
+		assertEquals(-10, heap.pop());
+		assertEquals(-400, heap.pop());
+		assertEquals(-450, heap.pop());
+
+		assertEquals("null", heap.pop()+"");
 	}
 
 	private static void driveBinarySearchTreeBasic() {
