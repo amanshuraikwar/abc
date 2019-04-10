@@ -35,6 +35,37 @@ public class Driver {
 		driveMaxHeap();
 		driveBubbleSort();
 		driveInsertionSort();
+		driveMergeSort();
+	}
+
+	private static void driveMergeSort() {
+
+		setTestContext("MergeSort");
+
+		Comparator<Integer> comparator = new Comparator<Integer>() {
+			@Override
+			public int compare(Integer expectedBig, Integer expectedSmall) {
+				return expectedBig - expectedSmall;
+			}
+		};
+
+		Sort<Integer> sort = new Sort.MergeSort(comparator);
+
+		assertEquals("[]", Arrays.toString(sort.sort(new Integer[]{})));
+
+		assertEquals("[1]", Arrays.toString(sort.sort(new Integer[]{1})));
+
+		assertEquals("[1, 2]", Arrays.toString(sort.sort(new Integer[]{1, 2})));
+
+		assertEquals("[1, 2]", Arrays.toString(sort.sort(new Integer[]{2, 1})));
+
+		assertEquals("[1, 2, 3]", Arrays.toString(sort.sort(new Integer[]{1, 2, 3})));
+
+		assertEquals("[1, 2, 3]", Arrays.toString(sort.sort(new Integer[]{2, 1, 3})));
+
+		assertEquals("[1, 2, 3]", Arrays.toString(sort.sort(new Integer[]{3, 2, 1})));
+
+		assertEquals("[-4, -2, -1, 1, 1, 2, 3, 3, 4, 5, 6, 7, 8, 9, 10]", Arrays.toString(sort.sort(new Integer[]{3, 3, 1, -1, -2, 4, 5, 6, -4, 10, 9, 8, 7, 2, 1})));
 	}
 
 	private static void driveInsertionSort() {
