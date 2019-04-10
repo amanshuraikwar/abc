@@ -97,7 +97,7 @@ public interface Sort<T> {
 
     // Time complexity: All = O(N*Log(N))
     // Space complexity: O(N)
-    // In place: yes
+    // In place: no
     // Stable: yes 
     class MergeSort<T> extends SortImpl<T> {
 
