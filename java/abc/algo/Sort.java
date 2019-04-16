@@ -7,12 +7,6 @@ public interface Sort<T> {
 
     T[] sort(T[] items);
 
-    // Time complexity: Best = O(N) 
-    //                  Avg = O(N^2)
-    //                  Worst = O(N^2)
-    // Space complexity: O(1)
-    // In place: yes
-    // Stable: yes
     abstract class SortImpl<T> implements Sort<T> {
 
         protected Comparator<T> comparator;
@@ -21,7 +15,13 @@ public interface Sort<T> {
             this.comparator = comparator;
         }
     }
-
+    
+    // Time complexity: Best = O(N) 
+    //                  Avg = O(N^2)
+    //                  Worst = O(N^2)
+    // Space complexity: O(1)
+    // In place: yes
+    // Stable: yes
     class BubbleSort<T> extends SortImpl<T> {
 
         public BubbleSort(Comparator<T> comparator) {
@@ -228,6 +228,38 @@ public interface Sort<T> {
             }
 
             return i;
+        }
+    }
+
+    // Time complexity: All = O(N*N)
+    // Space complexity: O(1)
+    // In place: yes
+    // Stable: yes
+    class SelectionSort<T> extends SortImpl<T> {
+
+        public SelectionSort(Comparator<T> comparator) {
+            super(comparator);
+        }
+
+        public T[] sort(T[] items) {
+
+            for (int i = 0; i < items.length - 1; i++) {
+
+                int smallI = i;
+
+                for (int j = i; j < items.length; j++) {
+
+                    if (comparator.compare(items[smallI], items[j]) > 0 ) {
+                        smallI = j;
+                    }
+                }
+
+                T temp = items[i];
+                items[i] = items[smallI];
+                items[smallI] = temp;
+            }
+
+            return items;
         }
     }
 }
