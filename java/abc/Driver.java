@@ -36,6 +36,60 @@ public class Driver {
 		driveBubbleSort();
 		driveInsertionSort();
 		driveMergeSort();
+		driveQuickSort();
+	}
+
+	private static void driveQuickSort() {
+
+		setTestContext("QuickSort");
+		
+		Comparator<Integer> comparator = new Comparator<Integer>() {
+			@Override
+			public int compare(Integer expectedBig, Integer expectedSmall) {
+				return expectedBig - expectedSmall;
+			}
+		};
+
+		Sort.QuickSort<Integer> sort = new Sort.QuickSort(comparator);
+		
+		Integer[] arr = new Integer[]{3, 4, 5, 1, 2, 0, 8};
+		assertEquals(3, sort.partition(arr, 0, 0, 6));
+
+		arr = new Integer[]{3, 4, 5, 1, 2, 0, 8};
+		assertEquals(4, sort.partition(arr, 0, 1, 6));
+
+		arr = new Integer[]{3, 4, 5, 1, 2, 0, 8};
+		assertEquals(5, sort.partition(arr, 0, 2, 6));
+
+		arr = new Integer[]{3, 4, 5, 1, 2, 0, 8};
+		assertEquals(1, sort.partition(arr, 0, 3, 6));
+
+		arr = new Integer[]{3, 4, 5, 1, 2, 0, 8};
+		assertEquals(2, sort.partition(arr, 0, 4, 6));
+
+		arr = new Integer[]{3, 4, 5, 1, 2, 0, 8};
+		assertEquals(0, sort.partition(arr, 0, 5, 6));
+
+		arr = new Integer[]{3, 4, 5, 1, 2, 0, 8};
+		assertEquals(6, sort.partition(arr, 0, 6, 6));
+
+		assertEquals("[]", Arrays.toString(sort.sort(new Integer[]{})));
+
+		assertEquals("[1]", Arrays.toString(sort.sort(new Integer[]{1})));
+
+		assertEquals("[1, 2]", Arrays.toString(sort.sort(new Integer[]{1, 2})));
+
+		assertEquals("[1, 2]", Arrays.toString(sort.sort(new Integer[]{2, 1})));
+
+		assertEquals("[1, 2, 3]", Arrays.toString(sort.sort(new Integer[]{1, 2, 3})));
+
+		assertEquals("[1, 2, 3]", Arrays.toString(sort.sort(new Integer[]{2, 1, 3})));
+
+		assertEquals("[1, 2, 3]", Arrays.toString(sort.sort(new Integer[]{3, 2, 1})));
+
+		assertEquals("[-4, -2, -1, 1, 1, 2, 3, 3, 4, 5, 6, 7, 8, 9, 10]", Arrays.toString(sort.sort(new Integer[]{3, 3, 1, -1, -2, 4, 5, 6, -4, 10, 9, 8, 7, 2, 1})));
+
+		assertEquals("[0, 1, 2, 3, 4, 5, 8]", Arrays.toString(sort.sort(new Integer[]{3, 4, 5, 1, 2, 0, 8})));
 	}
 
 	private static void driveMergeSort() {
