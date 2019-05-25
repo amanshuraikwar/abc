@@ -14,30 +14,105 @@ public class Driver {
 
 	public static void main(String[] args) {
 		
-		driveQueue();
-		driveStack();
-		driveLinkedList();
-		driveVector();
-		driveCircularBuffer();
-		driveRollingHash();
-		driveKarpRabin();
-		driveBitwise();
-		driveByte();
-		driveBitsCounter();
-		drivePowerTwoRounder();
-		driveSwap();
-		driveAbsolute();
-		driveTreeTraversals();
-		driveBfs();
-		driveDfs();
-		driveBinarySearch();
-		driveBinarySearchTreeBasic(); 
-		driveMaxHeap();
-		driveBubbleSort();
-		driveInsertionSort();
-		driveMergeSort();
-		driveQuickSort();
-		driveSelectionSort();
+		// driveQueue();
+		// driveStack();
+		// driveLinkedList();
+		// driveVector();
+		// driveCircularBuffer();
+		// driveRollingHash();
+		// driveKarpRabin();
+		// driveBitwise();
+		// driveByte();
+		// driveBitsCounter();
+		// drivePowerTwoRounder();
+		// driveSwap();
+		// driveAbsolute();
+		// driveTreeTraversals();
+		// driveBfs();
+		// driveDfs();
+		// driveBinarySearch();
+		// driveBinarySearchTreeBasic(); 
+		// driveMaxHeap();
+		// driveBubbleSort();
+		// driveInsertionSort();
+		// driveMergeSort();
+		// driveQuickSort();
+		// driveSelectionSort();
+		// driveGraphInsertion();
+		driveUnionFind();
+	}
+
+	private static void driveUnionFind() {
+
+		UnionFind uf = new UnionFind.SimpleUnionFind(5);
+		
+		assertEquals(0, uf.find(0));
+		assertEquals(1, uf.find(1));
+		assertEquals(2, uf.find(2));
+		assertEquals(3, uf.find(3));
+		assertEquals(4, uf.find(4));
+		assertEquals(-1, uf.find(5));
+		assertEquals(-1, uf.find(-1));
+
+		assertEquals(true, uf.union(0, 1));
+		assertEquals(0, uf.find(0));
+		assertEquals(0, uf.find(1));
+
+		assertEquals(true, uf.union(0, 2));
+		assertEquals(0, uf.find(0));
+		assertEquals(0, uf.find(1));
+		assertEquals(0, uf.find(2));
+	}
+
+	private static void driveGraphInsertion() {
+
+		setTestContext("GraphInsertionAdjacencyList");
+
+		Graph graph = new Graph.AdjacencyList(8);
+
+		graph.insert(0, 6);
+		graph.insert(6, 1);
+		graph.insert(6, 7);
+		graph.insert(1, 5);
+		graph.insert(5, 7);
+		graph.insert(2, 0);
+		graph.insert(2, 4);
+		graph.insert(4, 1);
+		graph.insert(4, 3);
+		graph.insert(3, 5);
+
+		assertEquals("[6]", graph.getAdjacentNodes(0).toString());
+		assertEquals("[5]", graph.getAdjacentNodes(1).toString());
+		assertEquals("[0, 4]", graph.getAdjacentNodes(2).toString());
+		assertEquals("[5]", graph.getAdjacentNodes(3).toString());
+		assertEquals("[1, 3]", graph.getAdjacentNodes(4).toString());
+		assertEquals("[7]", graph.getAdjacentNodes(5).toString());
+		assertEquals("[1, 7]", graph.getAdjacentNodes(6).toString());
+		assertEquals("[]", graph.getAdjacentNodes(7).toString());
+
+		setTestContext("GraphInsertionAdjacencyMatrix");
+
+		graph = new Graph.AdjacencyMatrix(8);
+
+		graph.insert(0, 6);
+		graph.insert(6, 1);
+		graph.insert(6, 7);
+		graph.insert(1, 5);
+		graph.insert(5, 7);
+		graph.insert(2, 0);
+		graph.insert(2, 4);
+		graph.insert(4, 1);
+		graph.insert(4, 3);
+		graph.insert(3, 5);
+
+		assertEquals("[6]", graph.getAdjacentNodes(0).toString());
+		assertEquals("[5]", graph.getAdjacentNodes(1).toString());
+		assertEquals("[0, 4]", graph.getAdjacentNodes(2).toString());
+		assertEquals("[5]", graph.getAdjacentNodes(3).toString());
+		assertEquals("[1, 3]", graph.getAdjacentNodes(4).toString());
+		assertEquals("[7]", graph.getAdjacentNodes(5).toString());
+		assertEquals("[1, 7]", graph.getAdjacentNodes(6).toString());
+		assertEquals("[]", graph.getAdjacentNodes(7).toString());
 	}
 
 	private static void driveSelectionSort() {
